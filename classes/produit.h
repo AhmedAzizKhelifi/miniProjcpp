@@ -63,6 +63,8 @@ std::istream& operator>>(std::istream& in,Produit& P){
     //P.id = P.nombreTotal;
     std::cout << "\n\tID: " << P.id << "\n\t\tLabel: ";
     in >> P.label;
+    //std::getline(in, P.label);
+   
     bool validation = true;
     do{
         try

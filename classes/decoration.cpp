@@ -39,7 +39,7 @@ int menuPrincipaleChoix(std::string path = "Acceuil"){
         try {
             //system("cls");
             header(path);
-            std::cout << "1. Produits\n2. Boozerzer\n3. Sslkdjflk\4. lkdfgklf\n\n";
+            std::cout << "1. Produits\n2. Commandes\n3. Personnel\n4. ______\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
@@ -72,11 +72,11 @@ int menuProduitChoix(std::string path = "Produits"){
         try {
             system("cls");
             header(path);
-            std::cout << "1. Ajouter Produits\n2. Afficher Produits\n3. Sslkdjflk\4. lkdfgklf\n\n";
+            std::cout << "1. Ajouter\n2. Afficher\n3. Modifier\n4. Supprimer\n5. Statistique\n\n0. Retour\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
-            validation = (r>0 && r<4); // menu tests
+            validation = (r>=0 && r<4); // menu tests
         }
         catch (const std::exception& e) {
             validation = false;
@@ -95,6 +95,8 @@ void menuProduit(std::vector<Produit>& v){
     int r = menuProduitChoix();
     switch (r)
     {
+    case 0:
+        break;
     case 1:
         {
             int yn = ouiNon("ajouter un nouveau produit","Produit\\Ajouter");
@@ -116,11 +118,11 @@ void menuProduit(std::vector<Produit>& v){
             if(v.size() == 0)
                 std::cout<< "Il n'y a rien a afficher.\n";
             else
-                std::cout<<"Nombre de produits: " << v.size() << "\n\n";
+                std::cout<<"Nombre de produits: " << v.size() << "\n";
 
             for(size_t i = 0; i < v.size(); ++i) 
                 std::cout << v[i];
-            std::cout << ">>> ";
+            std::cout << "\n>>> ";
             system("PAUSE");           
         }
         break;

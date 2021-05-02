@@ -2,6 +2,7 @@
 - Produit nzidou fih att date fabrication, delai d fin 
 - mySql
 - Login
+- fonctions Title() aal labels
 
 - Lezem classe container (template), 3ibara tableau bech nesta3mlouh bech nhotou fih
     les produits, les commandes ...
