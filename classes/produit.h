@@ -28,6 +28,8 @@ Produit::Produit()
 {
     nombreTotal++;
     id = nombreTotal;
+    label = "";
+    prix = 0;
 }
 
 Produit::Produit(std::string label, float prix){
