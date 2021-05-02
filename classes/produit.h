@@ -17,6 +17,20 @@ public:
     friend std::istream& operator >> (std::istream&, Produit&);
     float operator+(Produit&); //somme mtaa el prix
     float operator-(Produit&);
+    bool operator==(Produit&);
+    bool operator==(int); // == bel id 
+    bool operator> (Produit&);
+    bool operator>(float);
+    bool operator< (Produit&);
+    bool operator<(float);
+    bool operator<= (Produit&);
+    bool operator<=(float);
+    bool operator>= (Produit&);
+    bool operator>=(float);
+    // ==, >, < , <=, >=
+
+
+    //get_set
     ~Produit();
 };
 
@@ -49,8 +63,24 @@ std::istream& operator>>(std::istream& in,Produit& P){
     //P.id = P.nombreTotal;
     std::cout << "\n\tID: " << P.id << "\n\t\tLabel: ";
     in >> P.label;
-    std::cout << "\t\tPrix(DT): ";
-    in >> P.prix;
+    bool validation = true;
+    do{
+        try
+        {
+            std::cout << "\t\tPrix(DT): ";
+            in >> P.prix;
+            validation = P.prix>0;
+        }
+        catch(const std::exception& e)
+        {
+            validation = false;
+            std::cin.clear();
+            std::string tmp;
+            std::getline(std::cin, tmp);
+        }
+        
+    }while(validation==false);
+
     return in;
 } 
 
@@ -59,6 +89,91 @@ float Produit::operator+(Produit& P){
 }
 float Produit::operator-(Produit& P){
     return (this->prix - P.prix);
+}
+
+bool Produit::operator==(Produit& P){
+   // if(id == P.id) && (label == P.label) && (prix == P.prix))
+    if(id == P.id)
+        return true;
+    else
+        return false;
+
+}
+bool Produit::operator==(int _id){ //id
+    if (id==_id)
+        return true;
+    else
+        return false;
+}
+
+bool Produit::operator>(Produit& P){
+   // if(id == P.id) && (label == P.label) && (prix == P.prix))
+    if(prix > P.prix)
+        return true;
+    else
+        return false;
+
+}
+
+bool Produit::operator>=(Produit& P){
+   // if(id == P.id) && (label == P.label) && (prix == P.prix))
+    if(prix >= P.prix)
+        return true;
+    else
+        return false;
+
+}
+
+bool Produit::operator>(float _prix){
+   // if(id == P.id) && (label == P.label) && (prix == P.prix))
+    if(prix > _prix)
+        return true;
+    else
+        return false;
+
+}
+
+bool Produit::operator>=(float _prix){
+   // if(id == P.id) && (label == P.label) && (prix == P.prix))
+    if(prix >= _prix)
+        return true;
+    else
+        return false;
+
+}
+
+bool Produit::operator<(Produit& P){
+   // if(id == P.id) && (label == P.label) && (prix == P.prix))
+    if(prix < P.prix)
+        return true;
+    else
+        return false;
+
+}
+
+bool Produit::operator<=(Produit& P){
+   // if(id == P.id) && (label == P.label) && (prix == P.prix))
+    if(prix <= P.prix)
+        return true;
+    else
+        return false;
+}
+
+bool Produit::operator<(float _prix){
+   // if(id == P.id) && (label == P.label) && (prix == P.prix))
+    if(prix < _prix)
+        return true;
+    else
+        return false;
+}
+
+bool Produit::operator<=(float _prix){
+   // if(id == P.id) && (label == P.label) && (prix == P.prix))
+    if(prix < _prix)
+        return true;
+    else
+        return false;
+
 }
 
 int Produit::nombreTotalProduit(){

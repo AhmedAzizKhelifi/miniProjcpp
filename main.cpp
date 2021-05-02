@@ -7,6 +7,7 @@ using namespace std;
 int main(){
     vector<Produit> v;
 
+
     while (true)
     {
         menuPrincipale(v);
