@@ -10,9 +10,9 @@ int menuPrincipaleChoix(std::string path = "Acceuil"){
     std::cin.exceptions(std::istream::failbit);
     do {
         try {
-            system("cls");
+            //system("cls");
             header(path);
-            std::cout << "1. Produits\n2. Alksdjflksdj\n3. Sslkdjflk\4. lkdfgklf\n\n";
+            std::cout << "1. Produits\n2. Boozerzer\n3. Sslkdjflk\4. lkdfgklf\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
@@ -45,11 +45,11 @@ int menuProduitChoix(std::string path = "Produits"){
         try {
             system("cls");
             header(path);
-            std::cout << "1. Ajouter Produits\n2. Alksdjflksdj\n3. Sslkdjflk\4. lkdfgklf\n\n";
+            std::cout << "1. Ajouter Produits\n2. Afficher Produits\n3. Sslkdjflk\4. lkdfgklf\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
-            validation = r>0 && r<4; // menu tests
+            validation = (r>0 && r<4); // menu tests
         }
         catch (const std::exception& e) {
             validation = false;
@@ -64,27 +64,40 @@ int menuProduitChoix(std::string path = "Produits"){
     return r;
 }
 
-void menuProduit(std::vector<int>& v){
+void menuProduit(std::vector<Produit>& v){
     int r = menuProduitChoix();
     switch (r)
     {
     case 1:
         {
-            std::cout<< "ajouter habibi";
+            header("Produit\\Ajouter");
+            
             Produit P1;
             std::cin>> P1;
-            v.push_back(1000);
+            v.push_back(P1);
 
         }
         break;
-    
+    case 2:
+        {
+            header("Produit\\Afficher");
+            if(v.size() == 0)
+                std::cout<< "Il n'y a rien a afficher.\n";
+            std::cout<<"Nombre de produits: " << v.size() << "\n\n";
+
+            for(size_t i = 0; i < v.size(); ++i) 
+                std::cout << v[i];
+            std::cout << ">>>\n";
+            system("PAUSE");           
+        }
+        break;
     default:
         break;
     }
 }
 
 
-void menuPrincipale(std::vector<int>& v){
+void menuPrincipale(std::vector<Produit>& v){
     int r = menuPrincipaleChoix();
     switch (r)
     {
