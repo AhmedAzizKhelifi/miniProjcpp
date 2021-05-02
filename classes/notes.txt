@@ -1,0 +1,6 @@
+- Lezem classe date
+- Produit nzidou fih att date fabrication, delai d fin 
+- Lezem classe container (template), 3ibara tableau bech nesta3mlouh bech nhotou fih
+    les produits, les commandes ...
+        - ykoun feha des fonctions taa statistic, (chnoua aghla produit/commande, arkhes, moyenne ..)
+- 
