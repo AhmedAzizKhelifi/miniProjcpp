@@ -5,11 +5,13 @@ private:
     int id; //autoIncremented
     std::string label;
     float prix;
+    //
+    char printTo = '0'; //si =0 print to screen else to file
     static int nombreTotal;
 public:
     Produit();
     Produit(std::string, float);
-
+    Produit(std::string); // read from file line forme: "id label prix"
     static int nombreTotalProduit(); //jsp static shiha wale lena
 
     //surchage
@@ -31,6 +33,9 @@ public:
 
 
     //get_set
+    char getPrintTo(){return printTo;}
+    void setPrintTo(char c){printTo = c;}
+    
     ~Produit();
 };
 
@@ -53,9 +58,40 @@ Produit::Produit(std::string label, float prix){
     this->label = label;
 }
 
-std::ostream& operator<< (std::ostream& out,Produit& P){
-    out << "\n\tProduit id " << P.id << "\n\t\tLabel: " << P.label << ".\n\t\tPrix(DT): " << P.prix << ".\n"; 
+Produit::Produit(std::string line){
+    //"id label prix"
+    if(!isdigit(line[0])) std::cout<<"erreur";
+    
+    std::stringstream ss(line);
+    ss >> id >> label >> prix;;
+}
+
+/* std::ostream& operator<< (std::ostream& out,Produit& P){
+    std::cout <<"\n\t";
+    out << "Produit id " << P.id << "\n\t";
+    std::cout <<"\t";
+    out << "Label: " << P.label << ".\n\t";
+    std::cout <<"\t";
+    out << "Prix(DT): " << P.prix << ".";
+    std::cout << "\n"; 
     return out;
+} */
+
+std::ostream& operator<< (std::ostream& out,Produit& P){
+    if(P.printTo=='0') { //to screen
+        std::cout <<"\n\t";
+        out << "Produit id " << P.id << "\n\t";
+        std::cout <<"\t";
+        out << "Label: " << P.label << ".\n\t";
+        std::cout <<"\t";
+        out << "Prix(DT): " << P.prix << ".";
+        std::cout << "\n"; 
+        return out;
+    }else{ //pour fichier
+        out << P.id << " "<< P.label<< " " << P.prix<<std::endl;
+        return out;
+    }
+    
 }
 
 std::istream& operator>>(std::istream& in,Produit& P){
