@@ -44,7 +44,7 @@ int menuPrincipaleChoix(std::string path = "Acceuil"){
             std::cin >> r;
             system("cls");
             validation = r>0 && r<4; // menu tests
-        }
+        }   
         catch (const std::exception& e) {
             validation = false;
             //cout << "PLEASE INSERT A VALID OPTION." << endl;

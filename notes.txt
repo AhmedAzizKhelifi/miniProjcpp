@@ -4,7 +4,7 @@
 - Login
 - fonctions Title() aal labels
 
-- Lezem classe container (template), 3ibara tableau bech nesta3mlouh bech nhotou fih
+- Lezem classe *container* (template), 3ibara tableau bech nesta3mlouh bech nhotou fih
     les produits, les commandes ...
         - ykoun feha des fonctions taa statistic, (chnoua aghla produit/commande, arkhes, moyenne ..)
 - 
