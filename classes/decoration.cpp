@@ -104,6 +104,7 @@ void menuProduit(std::vector<Produit>& v){
                 header("Produit\\Ajouter"); 
                 Produit P1;
                 std::cin>> P1;
+                
                 v.push_back(P1);
             }
             else

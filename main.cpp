@@ -4,19 +4,70 @@
 #include <sstream>
 
 
-#include"classes/decoration.cpp"
+#include"classes/decoration.cpp" // + #include "classes/produit.h"
 #include"classes/fichier.h" // + #include"classes/container.h"
-
-//#include "classes/produit.h"
-
+#include "classes/utilityFunctions.h"
+#include"classes/menus.h"
+#include"classes/login.h"
+#include "classes/personnelle.h"
+#include "classes/loadData.cpp"
 using namespace std;
+
+/* 
+void fillAccounts(){
+    Fichier f("accounts");
+    Container<std::string> c ; // hedha container eli fih les lignes mtaa el fichier text, kol ligne f element
+    Container <Produit>; // hedha el container eli bech nhotou fih el Produit, eli bech naqrawhom mel fichier
+    //cout << f;
+    c=f.fillContainer(); // lena 3abina c b les lignes mtaa el fichiers
+    for (unsigned int i = 0; i< c.taille(); i++){
+       // cout<< c[i]<<endl;
+        produits.ajouter(Produit(c[i])); // lena 7awalna kol ligne men string l Produit w zidneh lel container produit 
+    }
+
+    cout << produits; // Affichage mtaa container produit.
+
+} */
+
 int main(){
-   
+
+
+    
+    Container <client> clients;
+    client::Load
+
+
+/*     client e("1","2","3","4","5");
+
+    clients = e.LoadClients();
+     for (unsigned int i = 0; i < clients.taille(); i++ ){
+        clients[i].afficher();
+        cout << "\n\n";
+    }
+ */
+
+    client de("azee","dff","df","ef","fdfs4");
+    client dde("azee","dff","df","ef","fdfs8787");
+    
+ 
 
 
 
 
 
+
+/*    Login log("14 azdzed");
+   log.fillAccountsFromfile();
+   Container<Login> c = log.getAccounts();
+    c.afficher();
+    //log.page();
+    cout << log.getId() << endl;
+    cout << log.getPassword();
+
+
+
+
+ */
 
     /*
     Fichier f("test1");
