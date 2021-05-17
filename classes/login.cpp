@@ -1,5 +1,5 @@
 #include "personnelle.h"
-
+#include <conio.h>
 
 int menu1Choix(std::string path = "___"){
     int r;
@@ -68,7 +68,14 @@ int choixLogin(Container<client> clients, Container<employer> employes){
     uc.header("Login");
     std::cout << "q: quit\n\n";
     std::cout << "Mot de passe\n\n>>> " ;
-    std::cin >> password;
+    char c = ' ';
+    while (c!=13){  // c = 13 is 'Enter' key.
+    c = getch();
+    if (c!=13){
+        password +=c;
+        std::cout << "*";
+        }
+    }
     if (password=="q") return 0;
 
     validation = rechercheLogin(id, password,clients,employes);
@@ -105,7 +112,7 @@ int choixClient(){
 
     return r;
 }
-void menuClient(bool &logged,Container<Produit> produits){
+void menuClient(int &logged,Container<Produit> produits){
     logged = true;
     int r = choixClient();
     switch (r)
@@ -117,7 +124,7 @@ void menuClient(bool &logged,Container<Produit> produits){
         system("PAUSE");   
         break;
     case 0:
-        logged = false;
+        logged = 0;
         /* log out */
         break;  
     
@@ -127,16 +134,16 @@ void menuClient(bool &logged,Container<Produit> produits){
     
 }
 
-void menuLogin(bool &logged,Container<client> clients, Container<employer> employes,Container<Produit> produits){
+void menuLogin(int &logged,Container<client> clients, Container<employer> employes,Container<Produit> produits){
     int r = choixLogin(clients,employes);
     switch (r)
     {
     case 0:
         /* code */
-        logged = false;
+        logged = 0;
         break;
     case 10:
-        logged = true;
+        logged = 1;
         menuClient(logged,produits);
         break;
     default:
@@ -144,7 +151,7 @@ void menuLogin(bool &logged,Container<client> clients, Container<employer> emplo
     }
 }
 
-void menu1(bool &logged,Container<client> clients, Container<employer> employes, Container<Produit> produits){
+void menu1(int &logged,Container<client> clients, Container<employer> employes, Container<Produit> produits){
     int r = menu1Choix("page1");
     switch (r)
     {

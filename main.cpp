@@ -39,7 +39,7 @@ int main(){
     employes = LoadEmployer();
     Container <Produit> produits;
     produits = LoadProduit();
-    bool logged = false;
+    int logged = 0;
 //     client e("1","2","3","4","5");
 
 /*    AFFICHAGE
@@ -57,12 +57,18 @@ int main(){
 
     while (true){
 
-        if(logged==false)
+        if(logged==0)
         {
             menu1(logged,clients,employes,produits);
         }
-        else{
+        else if(logged == 1){
             menuClient(logged,produits);
+        }
+        else if (logged == 2){
+            //menu gerant
+        }
+        else if (logged == 3){
+            //menu employer
         }
     }
     
