@@ -16,7 +16,13 @@ public:
   void afficher(); 
   void aaa(){cout << "ljjk";}
   //ostream& operator <<(operator&,personnelle&);
-      
+
+
+  //get set
+    string getId(){return id;}
+    string getPassword(){return password;}
+
+
 };
 class employer:public personnelle
 {

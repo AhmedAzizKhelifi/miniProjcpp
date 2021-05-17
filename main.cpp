@@ -34,12 +34,12 @@ int main(){
 
     
     Container <client> clients;
-    Container<Produit> produits;
     Container<employer> employes;
     clients = LoadClients();
-    produits = LoadProduit();
     employes = LoadEmployer();
-
+    Container <Produit> produits;
+    produits = LoadProduit();
+    bool logged = false;
 //     client e("1","2","3","4","5");
 
 /*    AFFICHAGE
@@ -55,8 +55,17 @@ int main(){
     
     cout << produits; */
 
+    while (true){
 
-    menu1(clients,employes);
+        if(logged==false)
+        {
+            menu1(logged,clients,employes,produits);
+        }
+        else{
+            menuClient(logged,produits);
+        }
+    }
+    
 
 
 
