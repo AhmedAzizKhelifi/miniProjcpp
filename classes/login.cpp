@@ -29,14 +29,23 @@ int menu1Choix(std::string path = "___"){
 }
 
 
-bool rechercheLogin(std::string id, std::string password,Container<client> clients, Container<employer> employes){
-    for(int i = 0; i<clients.taille(); i++){
-        if(clients[i].getId() == id)
-            if(clients[i].getPassword() == password)
-                return true;
+int rechercheLogin(std::string id, std::string password,Container<client> clients, Container<employer> employes){
+    if(id[0] == 'c'){
+        for(int i = 0; i<clients.taille(); i++){
+            if(clients[i].getId() == id)
+                if(clients[i].getPassword() == password)
+                    return 10;
+        }
+    }else if(id[0] == 'e'){
+        for(int i = 0; i<employes.taille(); i++){
+            if(employes[i].getId() == id)
+                if(employes[i].getPassword() == password)
+                    return 11;
+        }
     }
+
     
-    return false;
+    return 0;
 }
 
 
@@ -69,6 +78,7 @@ int choixLogin(Container<client> clients, Container<employer> employes){
     std::cout << "q: quit\n\n";
     std::cout << "Mot de passe\n\n>>> " ;
     char c = ' ';
+    password = "";
     while (c!=13){  // c = 13 is 'Enter' key.
     c = getch();
     if (c!=13){
@@ -78,10 +88,9 @@ int choixLogin(Container<client> clients, Container<employer> employes){
     }
     if (password=="q") return 0;
 
-    validation = rechercheLogin(id, password,clients,employes);
+    validation = rechercheLogin(id, password,clients,employes) != 0;
     } while (validation == false) ;
-    std::cout <<"loged";
-    return 10;
+    return rechercheLogin(id, password,clients,employes);
 } 
 
 
@@ -145,6 +154,11 @@ void menuLogin(int &logged,Container<client> clients, Container<employer> employ
     case 10:
         logged = 1;
         menuClient(logged,produits);
+        break;
+    case 11:
+        logged = 1;
+        std::cout << "Menu emplyoe: \n";
+        system("PAUSE");
         break;
     default:
         break;
