@@ -4,6 +4,7 @@ class Container{
         std::vector<T> tab;
     public:
         void ajouter(T);
+        int taille(){return tab.size();}
         T operator[](int);
         template<class U>
         friend std::ostream& operator<< (std::ostream&, Container<U>&);

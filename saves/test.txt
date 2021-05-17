@@ -1,1 +1,2 @@
-1 khobz 50
+10 produit_id_10 12.5
+11 produit_id_11 50

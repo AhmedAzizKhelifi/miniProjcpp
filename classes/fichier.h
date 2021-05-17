@@ -1,4 +1,6 @@
 
+#include"container.h"
+
 class Fichier{
     private:
         std::string nom;
@@ -6,6 +8,7 @@ class Fichier{
     public:
         Fichier(std::string);
         void afficher();
+        Container<std::string> fillContainer(); // fill container by strings from file, line by line
         void appendStr(std::string);
         void appendProduit(Produit);
         void reset(); //supprimer le contenu du fichier
@@ -40,6 +43,21 @@ void Fichier::afficher(){
         if(file.eof()) break;
     }
     file.close();
+}
+
+
+Container<std::string> Fichier::fillContainer(){
+    Container<std::string> c;
+    char ch[101];
+    file.seekg(0);
+    file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
+    while(true){
+        file.getline(ch,100,'\n');
+        c.ajouter(ch);
+        if(file.eof()) break;
+    }
+    file.close();
+    return c;
 }
 
 void Fichier::appendStr(std::string ch){
@@ -80,6 +98,4 @@ std::ostream& operator << (std::ostream& out,Fichier& f){
     f.file.close();
     return out;
 }
-
-
 
