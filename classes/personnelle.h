@@ -24,6 +24,7 @@ class employer:public personnelle
     int num_telf;
 public:
      employer();
+     employer(string,int);
      employer(string="",string="",string="",string="",string="",int=0);
      void afficherc();
      void archiver();
@@ -31,16 +32,23 @@ public:
      void Modifier();
      //ostream& operator <<(operator&,employer&);
 };
+
+employer::employer(string line, int x){
+    std::stringstream ss(line);
+    ss >> id >> nom>> prenom>> email >> password >> num_telf;
+}
+
+
 class client: public personnelle
 {
    public:
     client();
     client(string, int);
     client(string a="",string b="",string c="",string d="",string e=""):personnelle(a,b,c,d,e){}
-    static Container<client> LoadClients();
+    Container<client> LoadClients();
     void ModifierClient();
 };
-static Container<client> client::LoadClients(){
+Container<client> client::LoadClients(){
     Fichier f("clients");
     Container<std::string> c ;
     c=f.fillContainer();

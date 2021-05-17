@@ -34,17 +34,27 @@ int main(){
 
     
     Container <client> clients;
-    client::Load
+    Container<Produit> produits;
+     Container<employer> employes;
+    clients = LoadClients();
+    produits = LoadProduit();
+    employes = LoadEmployer();
 
+//     client e("1","2","3","4","5");
 
-/*     client e("1","2","3","4","5");
-
-    clients = e.LoadClients();
+   
      for (unsigned int i = 0; i < clients.taille(); i++ ){
         clients[i].afficher();
         cout << "\n\n";
     }
- */
+    
+    for (unsigned int i = 0; i < employes.taille(); i++ ){
+        employes[i].afficherc();
+        cout << "\n\n";
+    }
+    
+    cout << produits;
+
 
     client de("azee","dff","df","ef","fdfs4");
     client dde("azee","dff","df","ef","fdfs8787");
