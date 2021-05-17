@@ -8,8 +8,8 @@
 #include"classes/fichier.h" // + #include"classes/container.h"
 #include "classes/utilityFunctions.h"
 #include"classes/menus.h"
-#include"classes/login.h"
-#include "classes/personnelle.h"
+#include"classes/login.cpp"
+
 #include "classes/loadData.cpp"
 using namespace std;
 
@@ -35,14 +35,14 @@ int main(){
     
     Container <client> clients;
     Container<Produit> produits;
-     Container<employer> employes;
+    Container<employer> employes;
     clients = LoadClients();
     produits = LoadProduit();
     employes = LoadEmployer();
 
 //     client e("1","2","3","4","5");
 
-   
+/*    AFFICHAGE
      for (unsigned int i = 0; i < clients.taille(); i++ ){
         clients[i].afficher();
         cout << "\n\n";
@@ -53,16 +53,10 @@ int main(){
         cout << "\n\n";
     }
     
-    cout << produits;
+    cout << produits; */
 
 
-    client de("azee","dff","df","ef","fdfs4");
-    client dde("azee","dff","df","ef","fdfs8787");
-    
- 
-
-
-
+    menu1(clients,employes);
 
 
 
