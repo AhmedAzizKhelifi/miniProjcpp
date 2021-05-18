@@ -42,7 +42,13 @@ int rechercheLogin(std::string id, std::string password,Container<client> client
                 if(employes[i].getPassword() == password)
                     return 11;
         }
-    }
+    }/* else if(id[0] == 'g'){
+        for(int i = 0; i<employes.taille(); i++){
+            if(employes[i].getId() == id)
+                if(employes[i].getPassword() == password)
+                    return 11;
+        }
+    } */
 
     
     return 0;
@@ -58,12 +64,12 @@ int choixLogin(Container<client> clients, Container<employer> employes){
     do
     {
         uc.header("Login");
-        std::cout << "q: quit\n\n";
+        std::cout << "0: Quitter\n\n";
         try
         {
-            std::cout << "Id \n\n>>> ";
+            std::cout << "Saisir votre identifiant\n>>> ";
             std::cin >> id;
-            if (id=="q") return 0;
+            if (id=="0") return 0;
         }
         catch(const std::exception& e)
         {
@@ -75,8 +81,8 @@ int choixLogin(Container<client> clients, Container<employer> employes){
         }
 
     uc.header("Login");
-    std::cout << "q: quit\n\n";
-    std::cout << "Mot de passe\n\n>>> " ;
+    std::cout << "0: Quitter\n\n";
+    std::cout << "Saisir votre mot de passe\n>>> " ;
     char c = ' ';
     password = "";
     while (c!=13){  // c = 13 is 'Enter' key.
@@ -86,7 +92,7 @@ int choixLogin(Container<client> clients, Container<employer> employes){
         std::cout << "*";
         }
     }
-    if (password=="q") return 0;
+    if (password=="0") return 0;
 
     validation = rechercheLogin(id, password,clients,employes) != 0;
     } while (validation == false) ;
@@ -102,7 +108,7 @@ int choixClient(){
     do {
         try {
             system("cls");
-            header("Menu Client");
+            header("Acceuil");
             std::cout << "1. Les produits\n2. Commander\n3. Historique\n\n0. Deconnecter\n\n";
             std::cout << ">>>";
             std::cin >> r;
@@ -122,7 +128,6 @@ int choixClient(){
     return r;
 }
 void menuClient(int &logged,Container<Produit> produits){
-    logged = true;
     int r = choixClient();
     switch (r)
     {
@@ -143,6 +148,132 @@ void menuClient(int &logged,Container<Produit> produits){
     
 }
 
+int choixEmployer(std::string path = "Acceuil"){
+    int r;
+    bool validation = true;
+    std::cin.exceptions(std::istream::failbit);
+    do {
+        try {
+            //system("cls");
+            header(path);
+            std::cout << "1. Produits\n2. Commandes\n3. Personnel\n4. ______\n\n0. Deconnecter\n\n";
+            std::cout << ">>>";
+            std::cin >> r;
+            system("cls");
+            validation = r>=0 && r<=4; // menu tests
+        }   
+        catch (const std::exception& e) {
+            validation = false;
+            //cout << "PLEASE INSERT A VALID OPTION." << endl;
+            std::cin.clear();
+            std::string tmp;
+            std::getline(std::cin, tmp);
+        }
+       
+    } while (validation == false);
+
+    return r;
+}
+
+int choixEmployerProduits(){
+    int r;
+    bool validation = true;
+    std::cin.exceptions(std::istream::failbit);
+    do {
+        try {
+            system("cls");
+            header("Produits");
+            std::cout << "1. Ajouter\n2. Afficher\n3. Modifier\n4. Supprimer\n5. Statistique\n\n0. Retour\n\n";
+            std::cout << ">>>";
+            std::cin >> r;
+            system("cls");
+            validation = (r>=0 && r<6); // menu tests
+        }
+        catch (const std::exception& e) {
+            validation = false;
+            //cout << "PLEASE INSERT A VALID OPTION." << endl;
+            std::cin.clear();
+            std::string tmp;
+            std::getline(std::cin, tmp);
+        }
+       
+    } while (validation == false);
+
+    return r;
+}
+void menuEmployerProduits(Container<Produit>& produits){
+    int r = choixEmployerProduits();
+    switch (r)
+    {
+    case 0:
+        break;
+    case 1:
+        {
+            header("ajouter produit");
+            //oui non
+            Produit p;
+            // do until confirmer
+            std::cin >> p;
+            produits.ajouter(p);
+            Fichier f("produits");
+            f.appendProduit(p);
+            system("PAUSE"); 
+        }
+    break;
+    case 2:
+        {
+            header("afficher prod");
+            std::cout << produits;
+            system("PAUSE");           
+        }
+    break;
+    case 3:
+        {
+            header("modif");
+            system("PAUSE");     
+        }
+    case 4:
+        {
+            header("suppr");
+            system("PAUSE");     
+        }
+    case 5:
+        {
+            header("stat");
+            system("PAUSE");     
+        }
+    default:
+        break;
+    }    
+}
+
+void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>& produits){
+    int r = choixEmployer();
+     switch (r)
+    {
+    case 0:
+        logged = 0;
+        break;
+    case 1:
+        {
+            menuEmployerProduits(produits);
+        }
+    break;
+    case 2:
+        {
+            header("Commandes");
+            system("PAUSE");           
+        }
+    break;
+    case 3:
+        {
+            header("personelle");
+            system("PAUSE");     
+        }
+    default:
+        break;
+    }
+}
 void menuLogin(int &logged,Container<client> clients, Container<employer> employes,Container<Produit> produits){
     int r = choixLogin(clients,employes);
     switch (r)
@@ -156,9 +287,8 @@ void menuLogin(int &logged,Container<client> clients, Container<employer> employ
         menuClient(logged,produits);
         break;
     case 11:
-        logged = 1;
-        std::cout << "Menu emplyoe: \n";
-        system("PAUSE");
+        logged = 2;
+        menuEmployer(logged,employes,produits);
         break;
     default:
         break;

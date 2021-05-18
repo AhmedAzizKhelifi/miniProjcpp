@@ -1,2 +1,8 @@
-10 produit_id_10 12.5
-11 produit_id_11 50
+1 produit_id_1 12.5
+2 produit_id_2 50
+3 1 125
+4 55 55
+5 111 1111
+6 aaa 1
+7 aaaaaa 108 id8 80
+9 id9 99

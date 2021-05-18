@@ -72,7 +72,7 @@ std::fstream  Fichier::getFile()
 void Fichier::appendProduit(Produit p){
     file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
     p.setPrintTo('1');
-    file << p;
+    file <<p;
     p.setPrintTo('0');
     file.close();   
 }

@@ -60,6 +60,7 @@ Produit::Produit(std::string label, float prix){
 
 Produit::Produit(std::string line){
     //"id label prix"
+    nombreTotal++;
     if(!isdigit(line[0])) std::cout<<"erreur";
     
     std::stringstream ss(line);

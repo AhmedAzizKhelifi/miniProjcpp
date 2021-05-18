@@ -40,6 +40,28 @@ int main(){
     Container <Produit> produits;
     produits = LoadProduit();
     int logged = 0;
+
+
+    while (true){
+
+        if(logged==0)
+        {
+            menu1(logged,clients,employes,produits);
+        }
+        else if(logged == 1){
+            /* std::cout << "logged : " << logged << std::endl;
+            system("PAUSE"); */
+            menuClient(logged,produits);
+        }
+        else if (logged == 2){
+           /*  std::cout << "logged : " << logged << std::endl;
+            system("PAUSE"); */
+            menuEmployer(logged,employes,produits);
+        }
+        else if (logged == 3){
+            //menu gerant
+        }
+    }
 //     client e("1","2","3","4","5");
 
 /*    AFFICHAGE
@@ -55,22 +77,6 @@ int main(){
     
     cout << produits; */
 
-    while (true){
-
-        if(logged==0)
-        {
-            menu1(logged,clients,employes,produits);
-        }
-        else if(logged == 1){
-            menuClient(logged,produits);
-        }
-        else if (logged == 2){
-            //menu gerant
-        }
-        else if (logged == 3){
-            //menu employer
-        }
-    }
     
 
 

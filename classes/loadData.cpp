@@ -18,7 +18,9 @@ Container<Produit> LoadProduit(){
     Container<Produit> produits;
     for (unsigned int i = 0; i < c.taille(); i++ ){
         produits.ajouter(Produit(c[i]));
+        
     }
+    std::cout << produits[0].nombreTotalProduit();
     return produits;
 }
 
