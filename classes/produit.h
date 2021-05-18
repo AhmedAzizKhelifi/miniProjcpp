@@ -10,7 +10,7 @@ private:
     static int nombreTotal;
 public:
     Produit();
-    Produit(std::string, float);
+    Produit(float,std::string);
     Produit(std::string); // read from file line forme: "id label prix"
     static int nombreTotalProduit(); //jsp static shiha wale lena
 
@@ -21,6 +21,7 @@ public:
     float operator-(Produit&);
     bool operator==(Produit&);
     bool operator==(int); // == bel id 
+    bool operator==(std::string); // == bel id 
     bool operator> (Produit&);
     bool operator>(float);
     bool operator< (Produit&);
@@ -51,7 +52,7 @@ Produit::Produit()
     prix = 0;
 }
 
-Produit::Produit(std::string label, float prix){
+Produit::Produit( float prix,std::string label){
     nombreTotal++;
     this->id = nombreTotal;
     this->prix = prix;
@@ -144,6 +145,13 @@ bool Produit::operator==(int _id){ //id
     else
         return false;
 }
+bool Produit::operator==(std::string _id){ //id
+    std::string strId = std::to_string(id);
+    if (strId==_id)
+        return true;
+    else
+        return false;
+}
 
 bool Produit::operator>(Produit& P){
    // if(id == P.id) && (label == P.label) && (prix == P.prix))
@@ -216,7 +224,7 @@ bool Produit::operator<=(float _prix){
 }
 
 int Produit::nombreTotalProduit(){
-    std::cout << "\n\tNombre total des produits est: " << nombreTotal << ".\n";
+    //std::cout << "\n\tNombre total des produits est: " << nombreTotal << ".\n";
     return nombreTotal;
 }
 

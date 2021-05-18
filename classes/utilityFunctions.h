@@ -10,7 +10,7 @@ void utilityFunctions::header(std::string path){
     system("cls");
     std::cout << "APPLICATION NAME\\" << path << "\n\n";
 }
-int utilityFunctions::ouiNon(std::string text , std::string path){
+int utilityFunctions::ouiNon(std::string text , std::string path){ // y =1, n =0
     utilityFunctions uf;
     std::string r;
     bool validation = true;

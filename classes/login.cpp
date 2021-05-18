@@ -1,6 +1,17 @@
 #include "personnelle.h"
 #include <conio.h>
 
+
+void saveProductToFile(Container<Produit>& produits){
+    Produit p;  
+    std::cin >> p;
+    produits.ajouter(p);
+    Fichier f("produits");
+    f.appendProduit(p);
+    std::cout << "\nProduit ajoute avec success.\n\n>>> ";
+    system("PAUSE");
+}
+
 int menu1Choix(std::string path = "___"){
     int r;
     bool validation = true;
@@ -183,7 +194,7 @@ int choixEmployerProduits(){
         try {
             system("cls");
             header("Produits");
-            std::cout << "1. Ajouter\n2. Afficher\n3. Modifier\n4. Supprimer\n5. Statistique\n\n0. Retour\n\n";
+            std::cout << "1. Afficher\n2. Ajouter\n3. Modifier\n4. Supprimer\n5. Statistique\n\n0. Retour\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
@@ -209,22 +220,30 @@ void menuEmployerProduits(Container<Produit>& produits){
         break;
     case 1:
         {
-            header("ajouter produit");
-            //oui non
-            Produit p;
-            // do until confirmer
-            std::cin >> p;
-            produits.ajouter(p);
-            Fichier f("produits");
-            f.appendProduit(p);
-            system("PAUSE"); 
+            header("Produits\\Afficher");
+            std::cout << "\nNombre total des produits est: " << Produit::nombreTotalProduit() << ".\n";
+            for (unsigned int i =0;i <produits.taille();i++){
+                Produit p = produits[i];
+                std::cout << p;
+            }
+            std::cout << ">>> ";
+            system("PAUSE");           
         }
     break;
     case 2:
         {
-            header("afficher prod");
-            std::cout << produits;
-            system("PAUSE");           
+            //oui non
+            r = ouiNon("ajouter un nouveau produit","Produits\\Ajouter");
+            if (r==1){
+                header("Produits\\Ajouter");
+                saveProductToFile(produits);
+                break;
+            }
+            
+            // do until confirmer
+            header("Produits\\Ajouter");
+            std::cout << ">>> ";
+            system("PAUSE");
         }
     break;
     case 3:
@@ -232,11 +251,34 @@ void menuEmployerProduits(Container<Produit>& produits){
             header("modif");
             system("PAUSE");     
         }
+    break;
     case 4:
         {
-            header("suppr");
-            system("PAUSE");     
+/*             header("suppr");
+            system("PAUSE");    */  
+            r  = ouiNon("supprimer un produit","Produits\\Supprimer");
+            if (r == 1){
+                header("Produits\\Supprimer");
+                std::string id;
+                std::cout << "Saisir l'id du produit a supprimer.\n\n>>> ";
+                std::cin >> id;
+                r  = ouiNon("supprimer produit ID:  "+ id + " ","Produits\\Supprimer");
+                if (r == 1){
+                produits.supprimer(id);
+                Fichier f("produits");
+                f.reset();
+                for (unsigned int i =0;i <produits.taille();i++){
+                    Produit p = produits[i];
+                    f.appendProduit(p);
+                }
+                header("Produits\\Ajouter");
+                std::cout << "Produit supprimer avec succes.\n\n>>> ";
+                system("PAUSE");
+                }else {break;}
+
+            }
         }
+        break;
     case 5:
         {
             header("stat");

@@ -40,8 +40,7 @@ int main(){
     Container <Produit> produits;
     produits = LoadProduit();
     int logged = 0;
-
-
+    
     while (true){
 
         if(logged==0)
@@ -62,6 +61,7 @@ int main(){
             //menu gerant
         }
     }
+
 //     client e("1","2","3","4","5");
 
 /*    AFFICHAGE
