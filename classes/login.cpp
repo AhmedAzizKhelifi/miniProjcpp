@@ -248,7 +248,7 @@ void menuEmployerProduits(Container<Produit>& produits){
     break;
     case 3:
         {
-            header("modif");
+            r  = ouiNon("modifier un produit","Produits\\Modifier");
             system("PAUSE");     
         }
     break;
@@ -262,19 +262,33 @@ void menuEmployerProduits(Container<Produit>& produits){
                 std::string id;
                 std::cout << "Saisir l'id du produit a supprimer.\n\n>>> ";
                 std::cin >> id;
-                r  = ouiNon("supprimer produit ID:  "+ id + " ","Produits\\Supprimer");
-                if (r == 1){
-                produits.supprimer(id);
-                Fichier f("produits");
-                f.reset();
-                for (unsigned int i =0;i <produits.taille();i++){
-                    Produit p = produits[i];
-                    f.appendProduit(p);
+                if(produits.idExist(id)){
+
+                    r  = ouiNon("supprimer produit ID:  "+ id + " ","Produits\\Supprimer");
+                    Produit p = produits.getById(id);
+                    std::cout << p;
+                    
+                    if (r == 1){
+                    produits.supprimer(id);
+                    Fichier f("produits");
+                    f.reset();
+                    for (unsigned int i =0;i <produits.taille();i++){
+                        Produit p = produits[i];
+                        f.appendProduit(p);
+                    }
+                    header("Produits\\Ajouter");
+                    std::cout << "Produit supprimer avec succes.\n\n>>> ";
+                    system("PAUSE");
+                    }
+                    else {
+                        break;
+                    }
+
+                }else{
+                    std::cout << "Id n'existe pas.\n\n>>> ";
+                    system("PAUSE");
+                    
                 }
-                header("Produits\\Ajouter");
-                std::cout << "Produit supprimer avec succes.\n\n>>> ";
-                system("PAUSE");
-                }else {break;}
 
             }
         }
@@ -284,6 +298,7 @@ void menuEmployerProduits(Container<Produit>& produits){
             header("stat");
             system("PAUSE");     
         }
+        break;
     default:
         break;
     }    

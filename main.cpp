@@ -39,6 +39,9 @@ int main(){
     employes = LoadEmployer();
     Container <Produit> produits;
     produits = LoadProduit();
+    
+
+    //system("PAUSE");
     int logged = 0;
     
     while (true){

@@ -53,8 +53,7 @@ Container<std::string> Fichier::fillContainer(){
     file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
     while(true){
         file.getline(ch,100,'\n');
-        if (ch == "") break;
-        c.ajouter(ch);
+        if(isdigit(ch[0]) | ch[0] == 'c' | ch[0] == 'e') c.ajouter(ch);
         if(file.eof()) break;
     }
     file.close();

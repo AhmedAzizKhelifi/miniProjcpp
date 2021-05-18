@@ -34,9 +34,12 @@ public:
 
 
     //get_set
+
+    
+    int getId(){return id;}
     char getPrintTo(){return printTo;}
     void setPrintTo(char c){printTo = c;}
-    
+    void setNombreTotal(int nb){nombreTotal= nb;}
     ~Produit();
 };
 
