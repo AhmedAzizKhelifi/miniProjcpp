@@ -1,7 +1,7 @@
 #include "produit.h"
 void header(std::string path = ""){
     system("cls");
-    std::cout << "APPLICATION NAME\\" << path << "\n\n";
+    std::cout << "(deco)APPLICATION NAME\\" << path << "\n\n";
 }
 int ouiNon(std::string text = "____", std::string path ="____"){
     std::string r;
@@ -10,7 +10,7 @@ int ouiNon(std::string text = "____", std::string path ="____"){
     do {
         try {
             header(path);
-            std::cout << "Vous voulez vraiment " << text << "?[O/n]\n\n";
+            std::cout << "(deco)Vous voulez vraiment " << text << "?[O/n]\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
@@ -30,7 +30,7 @@ int ouiNon(std::string text = "____", std::string path ="____"){
     else 
         return 0;
 }
-
+/* 
 int menuPrincipaleChoix(std::string path = "Acceuil"){
     int r;
     bool validation = true;
@@ -145,3 +145,4 @@ void menuPrincipale(std::vector<Produit>& v){
         break;
     }
 }
+ */

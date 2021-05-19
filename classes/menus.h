@@ -1,4 +1,4 @@
-class Menu{
+/* class Menu{
     private:
     public:
     int menuPrincipaleChoix(std::string path = "Acceuil");
@@ -30,4 +30,4 @@ int Menu::menuPrincipaleChoix(std::string path){
     } while (validation == false);
 
     return r;
-}
+} */

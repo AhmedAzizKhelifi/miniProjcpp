@@ -6,7 +6,7 @@
 
 #include"classes/decoration.cpp" // + #include "classes/produit.h"
 #include"classes/fichier.h" // + #include"classes/container.h"
-#include "classes/utilityFunctions.h"
+//#include "classes/utilityFunctions.h"
 #include"classes/menus.h"
 #include"classes/login.cpp"
 

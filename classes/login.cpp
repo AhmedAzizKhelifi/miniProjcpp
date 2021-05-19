@@ -69,12 +69,11 @@ int rechercheLogin(std::string id, std::string password,Container<client> client
 int choixLogin(Container<client> clients, Container<employer> employes){
     std::string id;
     std::string password;
-    utilityFunctions uc;
     std::cin.exceptions(std::istream::failbit);
     bool validation = true;
     do
     {
-        uc.header("Login");
+        header("Login");
         std::cout << "0: Quitter\n\n";
         try
         {
@@ -91,7 +90,7 @@ int choixLogin(Container<client> clients, Container<employer> employes){
                 std::getline(std::cin, tmp);
         }
 
-    uc.header("Login");
+    header("Login");
     std::cout << "0: Quitter\n\n";
     std::cout << "Saisir votre mot de passe\n>>> " ;
     char c = ' ';
