@@ -1,7 +1,17 @@
 #include "produit.h"
+#include<ctime>
+
+void timeline()
+{
+  time_t t;
+  time(&t);
+  std::string curtime=ctime(&t);
+  std::cout<<curtime<<std::endl;
+}
 void header(std::string path = ""){
     system("cls");
-    std::cout << "(deco)APPLICATION NAME\\" << path << "\n\n";
+    std::cout << "APPLICATION NAME\\" << path << "\n";
+    timeline();
 }
 int ouiNon(std::string text = "____", std::string path ="____"){
     std::string r;
