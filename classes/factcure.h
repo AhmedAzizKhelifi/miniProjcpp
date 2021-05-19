@@ -1,4 +1,5 @@
 #include<string>
+#include<vector>
 #include<iostream>
 #include<istream>
 #include<ostream>
@@ -7,12 +8,14 @@ using namespace std;
 class Facture
 {
     string id;
-    string code_fac;
-    float prix_total ;
+    string idPersonelle;
+    Container<string> idProduits;
+    float remise;
+    float prix_total;
     date Date ;
 public:
     Facture(){}
-    Facture(string,string,float,int,int,int);
+    Facture(string ,string ,float ,int ,int ,int, Container<Produit>);
     string getid(){return id;}
     void saisir_fact();
     void afficher_fact();
@@ -22,16 +25,33 @@ public:
 };
 
 
-Facture::Facture(string d,string ch,float p,int j,int m,int a)
+Facture::Facture(string _id,string _idPersonelle,float _remise,int j,int m,int a, Container<Produit> produits)
 {
-    id=d;
-    code_fac=ch;
-    prix_total=p;
+    id = _id;
+    idPersonelle = _idPersonelle;
+    remise = _remise;
+    //prix_total = _prix_total;
     Date.set_jour(j);
     Date.set_mois(m);
     Date.set_annee(a);
-}
 
+    //liste des produits :
+    do
+    {
+        ouiNon("text","path",0);
+        cout << "Saisir l'ID du produit: \n\n>>>";
+        string idProduit;
+        cin >> idProduit;
+        if(produits.idExist(idProduit))
+            cout << "add";
+        else
+            cout << "no produit";
+    } while (true);
+    
+
+
+}
+/* 
 void Facture::saisir_fact()
 {
     cout<<"\n entrez le code de la facture :"<<endl;
@@ -65,4 +85,4 @@ istream& operator>>(istream& in,Facture& f)
     cout<<"\n entrez la date de la facture :"<<endl;
     in>>f.Date.jour>>f.Date.mois>>f.Date.annee;
     return in;
-}
+} */

@@ -13,7 +13,7 @@ void header(std::string path = ""){
     std::cout << "APPLICATION NAME\\" << path << "\n";
     timeline();
 }
-int ouiNon(std::string text = "____", std::string path ="____",int h = 1){
+int ouiNon(std::string text = "_text_", std::string path ="_path_",int h = 1){
     std::string r;
     bool validation = true;
     std::cin.exceptions(std::istream::failbit);
@@ -26,7 +26,7 @@ int ouiNon(std::string text = "____", std::string path ="____",int h = 1){
             std::cout << "(deco)Vous voulez vraiment " << text << "?[O/n]\n\n";
             std::cout << ">>>";
             std::cin >> r;
-            system("cls");
+            //system("cls");
             validation = r=="O" || r =="o" || r=="N" || r =="n";
         }
         catch (const std::exception& e) {

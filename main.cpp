@@ -41,30 +41,10 @@ int main(){
     employes = LoadEmployer();
     Container <Produit> produits;
     produits = LoadProduit();
-    
+    cout << produits;
+    Facture fact("_id", "_idPersonelle",0,5,5,2000,produits);
+    system("PAUSE");
 
-    //system("PAUSE");
-    int logged = 0;
-     while (true){
-
-        if(logged==0)
-        {
-            menu1(logged,clients,employes,produits);
-        }
-        else if(logged == 1){
-            /* std::cout << "logged : " << logged << std::endl;
-            system("PAUSE"); */
-            menuClient(logged,produits);
-        }
-        else if (logged == 2){
-           /*  std::cout << "logged : " << logged << std::endl;
-            system("PAUSE"); */
-            menuEmployer(logged,employes,produits);
-        }
-        else if (logged == 3){
-            //menu gerant
-        }
-    }
 }
 //     client e("1","2","3","4","5");
 
