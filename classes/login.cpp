@@ -311,15 +311,16 @@ void menuEmployerProduits(Container<Produit>& produits){
                 std::cout << "Saisir l'id du produit a modifier.\n\n>>> ";
                 std::cin >> id;
                 if(produits.idExist(id)){
-
-                    r  = ouiNon("modifier produit ID:  "+ id + " ","Produits\\Modifier");
+                    header("Produits\\Modifier");
                     Produit p = produits.getById(id);
                     std::cout << p;
+                    r  = ouiNon("modifier produit ID:  "+ id + " ","Produits\\Modifier",0);
+
                     if (r == 1){
                         do
                         {    
                             produits.modifier(id);
-                            r = ouiNon("continuer a modifier le produit ID:  "+ id + " ","Produits\\Modifier");
+                            r = ouiNon("continuer a modifier le produit ID:  "+ id + " ","Produits\\Modifier",0);
                             Produit p = produits.getById(id);
                             std::cout << p;
                         } while (r==1);

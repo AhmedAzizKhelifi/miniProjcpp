@@ -13,13 +13,16 @@ void header(std::string path = ""){
     std::cout << "APPLICATION NAME\\" << path << "\n";
     timeline();
 }
-int ouiNon(std::string text = "____", std::string path ="____"){
+int ouiNon(std::string text = "____", std::string path ="____",int h = 1){
     std::string r;
     bool validation = true;
     std::cin.exceptions(std::istream::failbit);
     do {
         try {
-            header(path);
+            if (h==1)
+                header(path);
+            else
+                std::cout << "\n";
             std::cout << "(deco)Vous voulez vraiment " << text << "?[O/n]\n\n";
             std::cout << ">>>";
             std::cin >> r;
@@ -39,6 +42,36 @@ int ouiNon(std::string text = "____", std::string path ="____"){
         return 1;
     else 
         return 0;
+}
+
+
+
+int readInt(std::string path ="___",std::string text ="___", int h = 1){
+    int r;
+    bool validation = true;
+    std::cin.exceptions(std::istream::failbit);
+    do {
+        try {
+            if (h ==1)
+                header(path);
+            else
+                std::cout << "\n";
+            std::cout << text;
+            std::cout << ">>>";
+            std::cin >> r;
+           // validation = (r>=0 && r<3); // menu tests
+        }
+        catch (const std::exception& e) {
+            validation = false;
+            //cout << "PLEASE INSERT A VALID OPTION." << endl;
+            std::cin.clear();
+            std::string tmp;
+            std::getline(std::cin, tmp);
+        }
+       
+    } while (validation == false);
+
+    return r;
 }
 /* 
 int menuPrincipaleChoix(std::string path = "Acceuil"){

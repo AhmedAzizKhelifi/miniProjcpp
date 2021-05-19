@@ -45,8 +45,7 @@ int main(){
 
     //system("PAUSE");
     int logged = 0;
-    
-    while (true){
+     while (true){
 
         if(logged==0)
         {
@@ -66,7 +65,7 @@ int main(){
             //menu gerant
         }
     }
-
+}
 //     client e("1","2","3","4","5");
 
 /*    AFFICHAGE
@@ -173,4 +172,3 @@ int main(){
 
     }  */
      
-}
