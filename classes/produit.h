@@ -1,3 +1,4 @@
+using namespace std;
 class Produit
 {
 private:
@@ -12,8 +13,9 @@ public:
     Produit();
     Produit(float,std::string);
     Produit(std::string); // read from file line forme: "id label prix"
+    void modifier();
     static int nombreTotalProduit(); //jsp static shiha wale lena
-
+   
     //surchage
     friend std::ostream& operator << (std::ostream&,Produit&);
     friend std::istream& operator >> (std::istream&, Produit&);
@@ -81,7 +83,19 @@ Produit::Produit(std::string line){
     std::cout << "\n"; 
     return out;
 } */
-
+void Produit::modifier()
+{
+    cout<<"---modification----"<<endl;
+    cout<<"1-label"<<endl<<"2-prix"<<endl;  
+    int i;
+    cin>>i;
+    switch (i)
+    {
+    case 1:cin>>label;break;
+    case 2:cin>>prix;break;
+    
+    }
+}
 std::ostream& operator<< (std::ostream& out,Produit& P){
     if(P.printTo=='0') { //to screen
         std::cout <<"\n\t";

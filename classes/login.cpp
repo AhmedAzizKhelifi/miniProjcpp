@@ -1,4 +1,6 @@
 #include "personnelle.h"
+#include "LoadData.cpp"
+#include"historique.h"
 #include <conio.h>
 
 
@@ -193,11 +195,11 @@ int choixEmployerProduits(){
         try {
             system("cls");
             header("Produits");
-            std::cout << "1. Afficher\n2. Ajouter\n3. Modifier\n4. Supprimer\n5. Statistique\n\n0. Retour\n\n";
+            std::cout << "1. Afficher\n2. Ajouter\n3. Modifier\n4. Supprimer\n\n0. Retour\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
-            validation = (r>=0 && r<6); // menu tests
+            validation = (r>=0 && r<5); // menu tests
         }
         catch (const std::exception& e) {
             validation = false;
@@ -211,6 +213,60 @@ int choixEmployerProduits(){
 
     return r;
 }
+
+
+int choixEmployerCommandes(){
+    int r;
+    bool validation = true;
+    std::cin.exceptions(std::istream::failbit);
+    do {
+        try {
+            system("cls");
+            header("Commandes");
+            std::cout << "1. Historique\n2. Nouvelle commande\n3. Supprimer commande\n\n0. Retour\n\n";
+            std::cout << ">>>";
+            std::cin >> r;
+            system("cls");
+            validation = (r>=0 && r<3); // menu tests
+        }
+        catch (const std::exception& e) {
+            validation = false;
+            //cout << "PLEASE INSERT A VALID OPTION." << endl;
+            std::cin.clear();
+            std::string tmp;
+            std::getline(std::cin, tmp);
+        }
+       
+    } while (validation == false);
+
+    return r;
+}
+
+void menuEmployerCommande(Container<Produit>& produits){
+    int r = choixEmployerCommandes();
+    switch (r)
+    {
+    case 0:
+        break;
+    case 1:
+        header("historique");
+        historique_gerant();
+        system("PAUSE");
+        break;
+    case 2:
+        header("ajou");
+        system("PAUSE");
+        break;
+    case 3:
+        header("suppr");
+        system("PAUSE");
+        break;
+    default:
+        break;
+    }
+}
+
+
 void menuEmployerProduits(Container<Produit>& produits){
     int r = choixEmployerProduits();
     switch (r)
@@ -220,7 +276,8 @@ void menuEmployerProduits(Container<Produit>& produits){
     case 1:
         {
             header("Produits\\Afficher");
-            std::cout << "\nNombre total des produits est: " << Produit::nombreTotalProduit() << ".\n";
+            //std::cout << "\nNombre total des produits est: " << Produit::nombreTotalProduit() << ".\n";
+            produits = LoadProduit();
             for (unsigned int i =0;i <produits.taille();i++){
                 Produit p = produits[i];
                 std::cout << p;
@@ -248,9 +305,52 @@ void menuEmployerProduits(Container<Produit>& produits){
     case 3:
         {
             r  = ouiNon("modifier un produit","Produits\\Modifier");
-            system("PAUSE");     
+            if (r == 1){
+                header("Produits\\Modifier");
+                std::string id;
+                std::cout << "Saisir l'id du produit a modifier.\n\n>>> ";
+                std::cin >> id;
+                if(produits.idExist(id)){
+
+                    r  = ouiNon("modifier produit ID:  "+ id + " ","Produits\\Modifier");
+                    Produit p = produits.getById(id);
+                    std::cout << p;
+                    if (r == 1){
+                        do
+                        {    
+                            produits.modifier(id);
+                            r = ouiNon("continuer a modifier le produit ID:  "+ id + " ","Produits\\Modifier");
+                            Produit p = produits.getById(id);
+                            std::cout << p;
+                        } while (r==1);
+                        
+                        
+                        
+                        Fichier f("produits");
+                        f.reset();
+                        for (unsigned int i =0;i <produits.taille();i++){
+                            Produit p = produits[i];
+                            f.appendProduit(p);
+                        }
+                        std::cout << "Produit modifier avec succes.\n\n>>> ";
+                        //header("Produits\\Ajouter");
+                        system("PAUSE");
+                    }
+                    else {
+                        std::cout << "\n\n>>> ";
+                        system("PAUSE");
+                        break;
+                    }
+
+                }else{
+                    std::cout << "Id n'existe pas.\n\n>>> ";
+                    system("PAUSE");
+                    
+                }
+
+            }
         }
-    break;
+        break;  
     case 4:
         {
 /*             header("suppr");
@@ -292,12 +392,6 @@ void menuEmployerProduits(Container<Produit>& produits){
             }
         }
         break;
-    case 5:
-        {
-            header("stat");
-            system("PAUSE");     
-        }
-        break;
     default:
         break;
     }    
@@ -317,8 +411,7 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
     break;
     case 2:
         {
-            header("Commandes");
-            system("PAUSE");           
+            menuEmployerCommande(produits);
         }
     break;
     case 3:

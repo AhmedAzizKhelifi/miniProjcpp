@@ -11,7 +11,8 @@
 #include"classes/login.cpp"
 #include"classes/date.h"
 #include"classes/commande.h"
-#include "classes/loadData.cpp"
+#include"classes/factcure.h"
+//#include "classes/loadData.cpp"
 using namespace std;
 
 /* 
