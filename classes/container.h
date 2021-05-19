@@ -5,6 +5,7 @@ class Container{
     public:
         void ajouter(T);
         void supprimer(std::string);
+        void modifier(std::string);
         int biggerId();
         bool idExist(std::string);
         T getById(std::string);
@@ -54,6 +55,19 @@ void Container<T>::supprimer(std::string id){
         if (produit==id){
             std::cout << "index : "<< i << std::endl;
             tab.erase(tab.begin() + i);
+        }
+    }
+}
+
+template<class T>
+void Container<T>::modifier(std::string id){
+    std::cout << "modif:::::\n\n";
+    for(unsigned int i = 0; i<taille();i++){
+        T produit = tab[i];
+        if (produit==id){
+            std::cout << "index : "<< i << std::endl;
+            produit.modifier();
+            tab[i] = produit;
         }
     }
 }
