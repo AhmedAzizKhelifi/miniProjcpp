@@ -1,3 +1,3 @@
-e1 nom prenom email 5 114444444
-e2 255 354 4 5 22222222
-e3 221 3 4 5 66666
+e1 nom_gerant prenom_gerant email 5 114444444 1
+e2 nom_employer prenom_emp 4 5 22222222 0
+e3 221 3 4 5 66666 0

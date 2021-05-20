@@ -33,6 +33,10 @@ void fillAccounts(){
 
 } */
 
+
+
+
+
 int main(){
 
 
@@ -48,13 +52,12 @@ int main(){
     produits = LoadProduit();
     int logged = 0;
     Setting s;
-    statgerant(factures,employes);
-/*         while (true){
+         while (true){
             
 
             if(logged==0)
             {
-                resetSettings();
+                Setting::resetSettings();
                 menu1(logged,clients,employes,produits,factures);
             }
             else if(logged == 1){
@@ -68,7 +71,7 @@ int main(){
             else if (logged == 3){
                 //menu gerant
             }
-        }  */
+        }  
 }
 
 

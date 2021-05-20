@@ -4,6 +4,34 @@
 #include <conio.h>
 #include "settings.h"
 
+float max(float tab[])
+{
+
+    float max = tab[0];
+        for(unsigned int i = 0; i<12;i++){
+            if (tab[i]>max){
+                max = tab[i];
+            }
+        }
+        return max;
+}
+
+void buildHistogram(float b,float a, int& maxHistogramme)
+{   
+    int x = 0;
+    if(a!=0)
+        x=(int)(b/a);
+    if (x>maxHistogramme)
+        maxHistogramme = x;
+    cout << maxHistogramme << " ";
+
+    for(int i=0;i<x;i++)
+        cout<<"x";
+    cout<<"\n";
+/*     for(int i=0;i<x;i++)
+        cout<<"*"; */
+}
+
 void pause(){
     system("pause");
 }
@@ -20,13 +48,6 @@ std::string readPassword(){
     return password;
 }
 
-void resetSettings(){
-    Setting s;
-    s.nom = "_";
-    s.prenom = "_";
-    s.email = "_";
-    s.id = "_";
-}
 
 std::string processId(std::string id){
     string ch;

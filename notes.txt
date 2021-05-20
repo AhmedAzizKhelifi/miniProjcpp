@@ -26,3 +26,5 @@
 + quit when typing facture, inscription ...
 
 + auto get jour today sinon set date > today
+
++ payment online client commander.

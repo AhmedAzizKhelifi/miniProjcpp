@@ -28,7 +28,16 @@ class date
      int get_jour(){return jour;}
      int get_mois(){return mois;}
      int get_annee(){return annee;}
+     static string getMonthName(int monthNumber)
+     {
+    string months[] = {"Janvier", "Fevrier", "Mars",
+                       "Avril", "Mai", "Juin",
+                       "Juillet", "Aout", "Septembre",
+                       "Octobre", "Novembre", "Decembre"
+                      } ;
 
+    return (months[monthNumber]);
+    }
 
      friend ostream& operator<<(ostream&,date&);
      friend istream& operator>>(istream&,date&);
@@ -205,5 +214,7 @@ int date::bissextile(int a)
     }
     return 0;
 }   
+
+
 
 #endif

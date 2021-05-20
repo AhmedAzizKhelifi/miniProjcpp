@@ -10,6 +10,7 @@
 
 void statgerant(Container<Facture> p,Container<employer> e)
 {
+    // somme taa vente
     float sum,summonth,sumyear,salaires;
     sum = 0;
     summonth = 0;
@@ -36,6 +37,41 @@ void statgerant(Container<Facture> p,Container<employer> e)
     }
     cout<<"la somme des salaires des employes ="<<salaires<<endl;
     cout<<"autres depenses ="; */
+
+
+
+}
+
+void statHistograme(Container<Facture> factures, int annee){
+    // tkharej histograme taa kol mois
+    int mois = 0;
+    float tab1[12] = {0.0};
+    int maxHistogramme=0;
+    for(unsigned int i =0; i<factures.taille();i++){
+        if (factures[i].getdate().get_annee()==annee){
+            mois = factures[i].getdate().get_mois();
+            tab1[mois-1] += factures[i].getprix();
+        }
+    }
+    float r=max(tab1);
+    float a=(r/60.0);
+
+    //printing
+    string ch = "Histogramme "+std::to_string(annee);
+    printf("\n  ------------%s-------------\n\n",ch.c_str());
+    
+    for(unsigned int i=0;i<12;i++)
+    {
+    //cout<<"Numero du mois"; //<<i+1<<endl;
+    printf("%3d | %10s | ", i+1,date::getMonthName(i).c_str());
+    buildHistogram(tab1[i],a,maxHistogramme);
+    }
+    cout << "\nIntervalle de ";
+    printf("%7d",0);
+    for(unsigned int i =0; i<55;i++ )
+        cout << "-";
+    printf(">>%d\n",maxHistogramme);
+    //printf("\nIntervale de%8d------------>>%55d\n",0,maxHistogramme);
 }
 
 
@@ -121,6 +157,7 @@ int rechercheLogin(std::string id, std::string password,Container<client> client
                     s.setId(employes[i].getId());
                     s.setEmail(employes[i].getEmail());
                     s.setTel(employes[i].getTel());
+                    s.setEstGerant(employes[i].getEstGerant());
                     return 11;
                 }
             }
@@ -299,11 +336,40 @@ int choixEmployer(std::string path = "Acceuil"){
         try {
             //system("cls");
             header(path);
-            std::cout << "1. Produits\n2. Commandes\n3. Personnel\n4. ______\n\n0. Deconnecter\n\n";
+            std::cout << "1. Produits\n2. Commandes\n3. Personnel\n4. Statistique\n\n0. Deconnecter\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
             validation = r>=0 && r<=4; // menu tests
+        }   
+        catch (const std::exception& e) {
+            validation = false;
+            //cout << "PLEASE INSERT A VALID OPTION." << endl;
+            std::cin.clear();
+            std::string tmp;
+            std::getline(std::cin, tmp);
+        }
+       
+    } while (validation == false);
+
+    return r;
+}
+
+
+int choixGerantStatistique(std::string path = "Statistique"){
+    int r;
+    bool validation = true;
+    std::cin.exceptions(std::istream::failbit);
+    // tkharej histograme taa kol mois
+    do {
+        try {
+            //system("cls");
+            header(path);
+            std::cout << "1. Histogramme de revenue mensuel des factures par annee\n2. Somme des ventes\n\n0. Retour\n\n";
+            std::cout << ">>>";
+            std::cin >> r;
+            system("cls");
+            validation = r>=0 && r<=2; // menu tests
         }   
         catch (const std::exception& e) {
             validation = false;
@@ -572,8 +638,35 @@ void menuEmployerProduits(Container<Produit>& produits){
     }    
 }
 
+void menuGerantStatistique(Container<Facture> factures){
+    int r = choixGerantStatistique();
+    switch (r)
+    {
+    case 0:
+        /* code */
+        break;
+    case 1:
+        {
+            //histo
+            //header("Statistique\\Histogramme de revenue mensuel des factures par annee");
+            int annee = readInt("Statistique\\Histogramme de revenue mensuel des factures par annee","Saisir l'annee: ");
+            statHistograme(factures,annee);
+            std::cout << ">>> ";
+            pause();
+        }
+        break;
+    case 2:
+        {
+            pause();
+        }
+    break;
+    default:
+        break;
+    }
+}
 void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>& produits,Container<Facture>& factures){
     int r = choixEmployer();
+    Setting s;
      switch (r)
     {
     case 0:
@@ -594,6 +687,18 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
             header("personelle");
             system("PAUSE");     
         }
+    case 4:
+        {
+            header("Statistique");
+            if (!s.estGerant){
+                std::cout << "mekech gerant frr";
+            }else
+            {
+                menuGerantStatistique(factures);
+            }
+            
+        }
+    break;
     default:
         break;
     }

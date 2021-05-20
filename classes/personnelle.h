@@ -38,7 +38,7 @@ class employer:public personnelle
 {
  protected:    
     int num_telf;
-    //bool estGerant = false;
+    bool estGerant = false;
 public:
      employer();
      employer(string,int);
@@ -49,11 +49,13 @@ public:
      void Modifier();
      //ostream& operator <<(operator&,employer&);
      int getTel(){return num_telf;}
+     void setEstGerant(bool g){estGerant = g;}
+     bool getEstGerant(){return estGerant;}
 };
 
 employer::employer(string line, int x){
     std::stringstream ss(line);
-    ss >> id >> nom>> prenom>> email >> password >> num_telf;
+    ss >> id >> nom>> prenom>> email >> password >> num_telf >> estGerant;
 }
 
 
