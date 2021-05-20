@@ -165,13 +165,14 @@ int choixClient(){
 
     return r;
 }
-void menuClient(int &logged,Container<Produit> produits){
+void menuClient(int &logged,Container<Produit> produits,Container<Facture>& factures){
     int r = choixClient();
+    Setting s;
     switch (r)
     {
     case 1:
         {
-            header("Produits\\Afficher");
+            header("Les produits");
             std::cout << "\nNombre total des produits est: " << produits.taille() << ".\n";
             produits = LoadProduit();
             for (unsigned int i =0;i <produits.taille();i++){
@@ -184,11 +185,27 @@ void menuClient(int &logged,Container<Produit> produits){
         break;
     case 2:
         {
-            header("Produits\\Commander");
+            header("Commender");
 
             std::cout << ">>> ";
             system("PAUSE");           
         }
+        break;
+    case 3:{
+        header("Historique des commandes");
+        int nbFactures = 0;
+        for (unsigned int i = 0; i < factures.taille(); i++){
+            Facture fact;
+            fact = factures[i];
+            if (fact.getIdPersonelle() == s.id){
+                std::cout << fact << "\n\n"; 
+                nbFactures++;
+            }
+        }
+        std::cout << "Nombre de commandes: " << nbFactures <<std::endl;
+        std::cout << ">>> ";
+        system("PAUSE");
+    }
         break;
     case 0:
         logged = 0;
@@ -291,6 +308,7 @@ void menuEmployerCommande(Container<Produit> produits,Container<Facture>& factur
         break;
     case 1:
         header("Commandes\\Archive des factures");
+        std::cout << "Nombre de commandes total: " <<  factures.taille() <<  std::endl;
         for (unsigned int i = 0; i < factures.taille(); i++){
             Facture fact;
             fact = factures[i];
@@ -517,7 +535,7 @@ void menuLogin(int &logged,Container<client> clients, Container<employer> employ
         break;
     case 10:
         logged = 1;
-        menuClient(logged,produits);
+        menuClient(logged,produits,factures);
         break;
     case 11:
         logged = 2;

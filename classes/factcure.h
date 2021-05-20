@@ -30,7 +30,7 @@ public:
 
     void setPrintTo(char c) {printTo = c;}
     string getId(){return id;}
-
+    string getIdPersonelle(){return idPersonelle;}
     friend ostream& operator<<(ostream&,Facture&);
     bool operator==(std::string); // == bel id 
     //friend istream& operator>>(istream&,Facture&);
@@ -160,7 +160,7 @@ ostream& operator<<(ostream& out,Facture& f)
             out << f.idProduits[i] << " ";
         }
         out <<endl;
-        out << f.id << " " << f.idPersonelle << " " << f.remise << " ";
+        out << f.id << " " << f.idPersonelle << " " << f.remise << " " << f.prix_total;
         out << f.Date.get_jour()<< " "  << f.Date.get_mois()<< " " << f.Date.get_annee() << endl;
     }
     return out;

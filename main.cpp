@@ -61,7 +61,7 @@ int main(){
         else if(logged == 1){
             /* std::cout << "logged : " << logged << std::endl;
             system("PAUSE"); */
-            menuClient(logged,produits);
+            menuClient(logged,produits,factures);
         }
         else if (logged == 2){
            /*  std::cout << "logged : " << logged << std::endl;
