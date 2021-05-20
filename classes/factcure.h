@@ -78,8 +78,20 @@ void Facture::saisir_fact(Container<Produit> produits){
     cin >> idPersonelle;
    // cout << "Saisir le remise en %: \n>>>";
     remise = readFloat("path","Saisir le remise en %:",0);
-    Date.saisir_date();
-    int r;
+    int r = 0;
+    do
+    {
+        r = readInt("","La date du facture est aujourd'hui, voulez-vous changer la date?\n\n0. Non\n1. Oui\n\n",0);
+        
+    } while (!(r>=0 && r<=1));
+    
+    
+    if (r==1)
+        Date.saisir_date();
+    else
+        Date = Date.getToday();
+    
+
     bool validation = false;
     //liste des produits :
     do
@@ -108,6 +120,7 @@ void Facture::saisir_fact(Container<Produit> produits){
 
 }
 
+//saisir mel client
 void Facture::saisir_fact(Container<Produit> produits, std::string idP,bool carteF,float _remise){
     Setting s;
     
@@ -120,8 +133,18 @@ void Facture::saisir_fact(Container<Produit> produits, std::string idP,bool cart
         remise = s.remiseSurCarteF;
     }else
     {remise =_remise;}
-    Date.saisir_date();
-    int r;
+    int r = 0;
+    do
+    {
+        r = readInt("","La date du facture est aujourd'hui, voulez-vous changer la date?\n\n0. Non\n1. Oui\n\n",0);
+        
+    } while (!(r>=0 && r<=1));
+    
+    
+    if (r==1)
+        Date.saisir_date();
+    else
+        Date = Date.getToday();
     bool validation = false;
     //liste des produits :
     do

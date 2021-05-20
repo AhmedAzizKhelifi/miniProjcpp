@@ -36,6 +36,16 @@ Container<employer> LoadEmployer(){
     }
     return employes;
 }
+Container<date> LoadPromoDays(){
+    Fichier f("PromoDays");
+    Container<std::string> c ;
+    c=f.fillContainer(false);
+    Container<date> datesPromo;
+    for (unsigned int i = 0; i < c.taille(); i++ ){
+        datesPromo.ajouter(date(c[i]));
+    }
+    return datesPromo;
+}
 
 //Container<Facture>
 Container<Facture> LoadFacture(){

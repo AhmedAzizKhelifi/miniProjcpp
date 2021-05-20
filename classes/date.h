@@ -1,6 +1,6 @@
 #ifndef DATE_H
 #define DATE_H
-
+#include <time.h>
 #include<string>
 #include<iostream>
 #include<istream>
@@ -16,6 +16,7 @@ class date
 
      date();
      date(int ,int  ,int );
+     date(string);
      int bissextile(int);
      void saisir_date();
      void afficher_date();
@@ -24,6 +25,8 @@ class date
      void set_jour(int j){jour=j;}
      void set_mois(int m){mois=m;}
      void set_annee(int a){annee=a;}
+     date getToday();
+     string toStr(){return (to_string(jour)+ " " + to_string(mois)+ " " +to_string(annee)+"\n");}
 
      int get_jour(){return jour;}
      int get_mois(){return mois;}
@@ -53,11 +56,15 @@ date::date()
     annee=0;
 }
 
-date::date(int a,int b,int c)
+date::date(int j,int m,int a)
 {
-    jour=a;
-    mois=b;
-    annee=c;
+    jour=j;
+    mois=m;
+    annee=a;
+}
+date::date(string line){
+    stringstream ss(line);
+    ss >> jour >> mois >> annee;
 }
 
 void date::saisir_date()
@@ -215,6 +222,17 @@ int date::bissextile(int a)
     return 0;
 }   
 
+date date::getToday(){
 
+    time_t theTime = time(NULL);
+    struct tm *aTime = localtime(&theTime);
+
+    int day = aTime->tm_mday;
+    int month = aTime->tm_mon + 1; // Month is 0 - 11, add 1 to get a jan-dec 1-12 concept
+    int year = aTime->tm_year + 1900; // Year is # years since 1900
+
+    date d(day,month,year);
+    return d;
+}
 
 #endif

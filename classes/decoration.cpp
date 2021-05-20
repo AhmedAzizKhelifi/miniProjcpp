@@ -132,7 +132,7 @@ int readInt(std::string path ="___",std::string text ="___", int h = 1){
             std::cout << text;
             std::cout << ">>> ";
             std::cin >> r;
-           // validation = (r>=0 && r<3); // menu tests
+            //validation = (r>=0 && r<1); // menu tests
         }
         catch (const std::exception& e) {
             validation = false;

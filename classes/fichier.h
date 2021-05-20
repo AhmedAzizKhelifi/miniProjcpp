@@ -11,7 +11,7 @@ class Fichier{
     public:
         Fichier(std::string);
         void afficher();
-        Container<std::string> fillContainer(); // fill container by strings from file, line by line
+        Container<std::string> fillContainer(bool=true); // fill container by strings from file, line by line
         void appendStr(std::string);
         void appendProduit(Produit);
         void appendFacture(Facture); 
@@ -51,14 +51,20 @@ void Fichier::afficher(){
 }
 
 
-Container<std::string> Fichier::fillContainer(){
+Container<std::string> Fichier::fillContainer(bool employerOrClient){
     Container<std::string> c;
     char ch[101];
     file.seekg(0);
     file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
     while(true){
         file.getline(ch,100,'\n');
-        if(isdigit(ch[0]) | ch[0] == 'c' | ch[0] == 'e') c.ajouter(ch);
+        if(employerOrClient){
+            if(isdigit(ch[0]) | ch[0] == 'c' | ch[0] == 'e') 
+                c.ajouter(ch);
+        }else{
+            c.ajouter(ch);
+        }
+        
         if(file.eof()) break;
     }
     file.close();

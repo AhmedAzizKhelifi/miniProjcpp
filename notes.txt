@@ -18,13 +18,17 @@
 
 
 ----
-+ estGerant
++- estGerant
   - add emplyer
   - set remise sur carte
   - set remise dates
 
-+ quit when typing facture, inscription ...
+- quit when typing facture, inscription ...
 
 + auto get jour today sinon set date > today
 
-+ payment online client commander.
+- payment online client commander.
+
++ SALAIRE
+
+--- done:

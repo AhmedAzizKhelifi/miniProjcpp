@@ -7,101 +7,11 @@
 #include "settings.h"
 #include "fichier.h"
 #include <conio.h>
-
-void statgerant(Container<Facture> p,Container<employer> e)
-{
-    // somme taa vente
-    float sum,summonth,sumyear,salaires;
-    sum = 0;
-    summonth = 0;
-    sumyear = 0;
-    date today(20,05,2021);
-   for(int i=0;i<p.taille();i++)
-     {
-        if(p[i].getdate()==today)
-          sum+=p[i].getprix();
-        if(p[i].getdate().get_mois()==5 && p[i].getdate().get_annee() == 2021)
-          summonth+=p[i].getprix();
-        if(p[i].getdate().get_annee()==2021)
-           sumyear+=p[i].getprix();  
-      }
-    cout<<"les somme des ventes d'aujourd'hui ="<<sum<<endl; 
-    cout<<"les somme des ventes du mois ="<<summonth<<endl; 
-    cout<<"les somme des ventes d'année ="<<sumyear<<endl;
-/*     cout<<"la somme des achats d'aujourd'hui ="<<
-    cout<<"la somme des achats du mois ="<<;
-    cout<<"la somme des achats d'année ="<<; */
-  /*   for(int i=0;i<e.taille();i++)
-    {
-        salaires+=e[i].getsalaires();
-    }
-    cout<<"la somme des salaires des employes ="<<salaires<<endl;
-    cout<<"autres depenses ="; */
+#include "statistique.cpp"
+#include "menuEmployer.cpp"
 
 
 
-}
-
-void statHistograme(Container<Facture> factures, int annee){
-    // tkharej histograme taa kol mois
-    int mois = 0;
-    float tab1[12] = {0.0};
-    int maxHistogramme=0;
-    for(unsigned int i =0; i<factures.taille();i++){
-        if (factures[i].getdate().get_annee()==annee){
-            mois = factures[i].getdate().get_mois();
-            tab1[mois-1] += factures[i].getprix();
-        }
-    }
-    float r=max(tab1);
-    float a=(r/60.0);
-
-    //printing
-    string ch = "Histogramme "+std::to_string(annee);
-    printf("\n  ------------%s-------------\n\n",ch.c_str());
-    
-    for(unsigned int i=0;i<12;i++)
-    {
-    //cout<<"Numero du mois"; //<<i+1<<endl;
-    printf("%3d | %10s | ", i+1,date::getMonthName(i).c_str());
-    buildHistogram(tab1[i],a,maxHistogramme);
-    }
-    cout << "\nIntervalle de ";
-    printf("%7d",0);
-    for(unsigned int i =0; i<55;i++ )
-        cout << "-";
-    printf(">>%d\n",maxHistogramme);
-    //printf("\nIntervale de%8d------------>>%55d\n",0,maxHistogramme);
-}
-
-
-void saveProductToFile(Container<Produit>& produits){
-    Produit p;  
-    std::cin >> p;
-    produits.ajouter(p);
-    Fichier f("produits");
-    f.appendProduit(p);
-    std::cout << "\nProduit ajoute avec success.\n\n>>> ";
-    system("PAUSE");
-}
-
-void saveFacture(Container<Facture>& factures,Container<Produit> produits){
-    Facture fact;  
-    fact.saisir_fact(produits);
-    factures.ajouter(fact);
-    Fichier f("facture");
-    f.appendFacture(fact);
-    std::cout << "\nFacture ajoutee avec success.\n\n>>> ";
-}
-
-void saveFacture(Container<Facture>& factures,Container<Produit> produits, std::string idP,bool carteF){
-    Facture fact;  
-    fact.saisir_fact(produits,idP,carteF);
-    factures.ajouter(fact);
-    Fichier f("facture");
-    f.appendFacture(fact);
-    std::cout << "\nFacture ajoutee avec success.\n\n>>> ";
-}
 
 int menu1Choix(std::string path = "___"){
     int r;
@@ -328,343 +238,7 @@ void menuClient(int &logged,Container<Produit> produits,Container<Facture>& fact
     
 }
 
-int choixEmployer(std::string path = "Acceuil"){
-    int r;
-    bool validation = true;
-    std::cin.exceptions(std::istream::failbit);
-    do {
-        try {
-            //system("cls");
-            header(path);
-            std::cout << "1. Produits\n2. Commandes\n3. Personnel\n4. Statistique\n\n0. Deconnecter\n\n";
-            std::cout << ">>>";
-            std::cin >> r;
-            system("cls");
-            validation = r>=0 && r<=4; // menu tests
-        }   
-        catch (const std::exception& e) {
-            validation = false;
-            //cout << "PLEASE INSERT A VALID OPTION." << endl;
-            std::cin.clear();
-            std::string tmp;
-            std::getline(std::cin, tmp);
-        }
-       
-    } while (validation == false);
-
-    return r;
-}
-
-
-int choixGerantStatistique(std::string path = "Statistique"){
-    int r;
-    bool validation = true;
-    std::cin.exceptions(std::istream::failbit);
-    // tkharej histograme taa kol mois
-    do {
-        try {
-            //system("cls");
-            header(path);
-            std::cout << "1. Histogramme de revenue mensuel des factures par annee\n2. Somme des ventes\n\n0. Retour\n\n";
-            std::cout << ">>>";
-            std::cin >> r;
-            system("cls");
-            validation = r>=0 && r<=2; // menu tests
-        }   
-        catch (const std::exception& e) {
-            validation = false;
-            //cout << "PLEASE INSERT A VALID OPTION." << endl;
-            std::cin.clear();
-            std::string tmp;
-            std::getline(std::cin, tmp);
-        }
-       
-    } while (validation == false);
-
-    return r;
-}
-
-int choixEmployerProduits(){
-    int r;
-    bool validation = true;
-    std::cin.exceptions(std::istream::failbit);
-    do {
-        try {
-            system("cls");
-            header("Produits");
-            std::cout << "1. Afficher\n2. Ajouter\n3. Modifier\n4. Supprimer\n\n0. Retour\n\n";
-            std::cout << ">>>";
-            std::cin >> r;
-            system("cls");
-            validation = (r>=0 && r<5); // menu tests
-        }
-        catch (const std::exception& e) {
-            validation = false;
-            //cout << "PLEASE INSERT A VALID OPTION." << endl;
-            std::cin.clear();
-            std::string tmp;
-            std::getline(std::cin, tmp);
-        }
-       
-    } while (validation == false);
-
-    return r;
-}
-
-
-int choixEmployerCommandes(){
-    int r;
-    bool validation = true;
-    std::cin.exceptions(std::istream::failbit);
-    do {
-        try {
-            system("cls");
-            header("Commandes");
-            std::cout << "1. Archive des factures\n2. Nouvelle commande\n3. Supprimer commande\n\n0. Retour\n\n";
-            std::cout << ">>>";
-            std::cin >> r;
-            system("cls");
-            validation = (r>=0 && r<=3); // menu tests
-        }
-        catch (const std::exception& e) {
-            validation = false;
-            //cout << "PLEASE INSERT A VALID OPTION." << endl;
-            std::cin.clear();
-            std::string tmp;
-            std::getline(std::cin, tmp);
-        }
-       
-    } while (validation == false);
-
-    return r;
-}
-
-void menuEmployerCommande(Container<Produit> produits,Container<Facture>& factures){
-    int r = choixEmployerCommandes();
-    switch (r)
-    {
-    case 0:
-        break;
-    case 1:
-        header("Commandes\\Archive des factures");
-        std::cout << "Nombre de commandes total: " <<  factures.taille() <<  std::endl;
-        for (unsigned int i = 0; i < factures.taille(); i++){
-            Facture fact;
-            fact = factures[i];
-            std::cout << fact << "\n\n"; 
-        }
-        std::cout << ">>> ";
-        system("PAUSE");
-        break;
-    case 2:
-        header("Commandes\\Nouvelle Commande");
-        saveFacture(factures,produits);
-        std::cout << ">>> ";
-        system("PAUSE");
-        break;
-    case 3:
-        {
-/*             header("suppr");
-            system("PAUSE");    */  
-            r  = ouiNon("supprimer une commande","Commandes\\Supprimer");
-            if (r == 1){
-                header("Commande\\Supprimer");
-                std::string id;
-                std::cout << "Saisir l'id du commande a supprimer.\n\n>>> ";
-                std::cin >> id;
-                Facture fact = factures.getBystrId(id);
-                if (factures.idstrExist(id))
-                {
-                    header("Commandes\\Supprimer");
-                    std::cout << fact;
-                    r  = ouiNon("supprimer commande ID:  "+ id + " ","Commandes\\Supprimer",0);
-                    Facture fact = factures.getBystrId(id);
-                    std::cout << fact;
-                    if (r == 1){
-                        factures.supprimer(id);
-                        Fichier f("facture");
-                        f.reset();
-                        for (unsigned int i =0;i <factures.taille();i++){
-                            Facture fact = factures[i];
-                            f.appendFacture(fact);
-                            header("Commandes\\Ajouter");
-                            std::cout << "Commande supprimer avec succes.\n\n>>> ";
-                            system("PAUSE");
-                        }
-                    }else  break;
-
-                }else{
-                        std::cout << "Id n'existe pas.\n\n>>> ";
-                        system("PAUSE");
-                        break;
-                }
-            }
-        }
-        break;
-    default:
-        break;
-    }
-}
-
-
-void menuEmployerProduits(Container<Produit>& produits){
-    int r = choixEmployerProduits();
-    switch (r)
-    {
-    case 0:
-        break;
-    case 1:
-        {
-            header("Produits\\Afficher");
-            std::cout << "\nNombre total des produits est: " << produits.taille() << ".\n";
-            produits = LoadProduit();
-            for (unsigned int i =0;i <produits.taille();i++){
-                Produit p = produits[i];
-                std::cout << p;
-            }
-            std::cout << ">>> ";
-            system("PAUSE");           
-        }
-    break;
-    case 2:
-        {
-            //oui non
-            r = ouiNon("ajouter un nouveau produit","Produits\\Ajouter");
-            if (r==1){
-                header("Produits\\Ajouter");
-                saveProductToFile(produits);
-                break;
-            }
-            
-            // do until confirmer
-            header("Produits\\Ajouter");
-            std::cout << ">>> ";
-            system("PAUSE");
-        }
-    break;
-    case 3:
-        {
-            r  = ouiNon("modifier un produit","Produits\\Modifier");
-            if (r == 1){
-                header("Produits\\Modifier");
-                std::string id;
-                std::cout << "Saisir l'id du produit a modifier.\n\n>>> ";
-                std::cin >> id;
-                if(produits.idintExist(id)){
-                    header("Produits\\Modifier");
-                    Produit p = produits.getByintId(id);
-                    std::cout << p;
-                    r  = ouiNon("modifier produit ID:  "+ id + " ","Produits\\Modifier",0);
-
-                    if (r == 1){
-                        do
-                        {    
-                            produits.modifier(id);
-                            r = ouiNon("continuer a modifier le produit ID:  "+ id + " ","Produits\\Modifier",0);
-                            Produit p = produits.getByintId(id);
-                            std::cout << p;
-                        } while (r==1);
-                        
-                        
-                        
-                        Fichier f("produits");
-                        f.reset();
-                        for (unsigned int i =0;i <produits.taille();i++){
-                            Produit p = produits[i];
-                            f.appendProduit(p);
-                        }
-                        std::cout << "Produit modifier avec succes.\n\n>>> ";
-                        //header("Produits\\Ajouter");
-                        system("PAUSE");
-                    }
-                    else {
-                        std::cout << "\n\n>>> ";
-                        system("PAUSE");
-                        break;
-                    }
-
-                }else{
-                    std::cout << "Id n'existe pas.\n\n>>> ";
-                    system("PAUSE");
-                    
-                }
-
-            }
-        }
-        break;  
-    case 4:
-        {
-/*             header("suppr");
-            system("PAUSE");    */  
-            r  = ouiNon("supprimer un produit","Produits\\Supprimer");
-            if (r == 1){
-                header("Produits\\Supprimer");
-                std::string id;
-                std::cout << "Saisir l'id du produit a supprimer.\n\n>>> ";
-                std::cin >> id;
-                if(produits.idintExist(id)){
-
-                    r  = ouiNon("supprimer produit ID:  "+ id + " ","Produits\\Supprimer");
-                    Produit p = produits.getByintId(id);
-                    std::cout << p;
-                    
-                    if (r == 1){
-                    produits.supprimer(id);
-                    Fichier f("produits");
-                    f.reset();
-                    for (unsigned int i =0;i <produits.taille();i++){
-                        Produit p = produits[i];
-                        f.appendProduit(p);
-                    }
-                    header("Produits\\Ajouter");
-                    std::cout << "Produit supprimer avec succes.\n\n>>> ";
-                    system("PAUSE");
-                    }
-                    else {
-                        break;
-                    }
-
-                }else{
-                    std::cout << "Id n'existe pas.\n\n>>> ";
-                    system("PAUSE");
-                    
-                }
-
-            }
-        }
-        break;
-    default:
-        break;
-    }    
-}
-
-void menuGerantStatistique(Container<Facture> factures){
-    int r = choixGerantStatistique();
-    switch (r)
-    {
-    case 0:
-        /* code */
-        break;
-    case 1:
-        {
-            //histo
-            //header("Statistique\\Histogramme de revenue mensuel des factures par annee");
-            int annee = readInt("Statistique\\Histogramme de revenue mensuel des factures par annee","Saisir l'annee: ");
-            statHistograme(factures,annee);
-            std::cout << ">>> ";
-            pause();
-        }
-        break;
-    case 2:
-        {
-            pause();
-        }
-    break;
-    default:
-        break;
-    }
-}
-void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>& produits,Container<Facture>& factures){
+void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>& produits,Container<Facture>& factures,Container<client>& clients){
     int r = choixEmployer();
     Setting s;
      switch (r)
@@ -687,6 +261,7 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
             header("personelle");
             system("PAUSE");     
         }
+    break;
     case 4:
         {
             header("Statistique");
@@ -694,9 +269,15 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
                 std::cout << "mekech gerant frr";
             }else
             {
-                menuGerantStatistique(factures);
+                menuGerantStatistique(factures,employes,clients);
             }
             
+        }
+    break;
+    case 5:
+        {
+            menuEmployerParametres();
+            system("PAUSE");     
         }
     break;
     default:
@@ -717,7 +298,7 @@ void menuLogin(int &logged,Container<client>& clients, Container<employer> emplo
         break;
     case 11:
         logged = 2;
-        menuEmployer(logged,employes,produits,factures);
+        menuEmployer(logged,employes,produits,factures,clients);
         break;
     default:
         break;

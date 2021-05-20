@@ -45,13 +45,23 @@ int main(){
     Container<employer> employes;
     Container<Facture> factures;
     Container <Produit> produits;
-    
+    Container <date> promoDays;
+
     clients = LoadClients();
     employes = LoadEmployer();
     factures = LoadFacture();   
     produits = LoadProduit();
+    promoDays = LoadPromoDays();
     int logged = 0;
+    date d;
+    d = d.getToday();
+    string ch =  d.toStr();
+    cout << ch;
+    date d2(ch);
+    cout << d2;
+    pause();
     Setting s;
+
          while (true){
             
 
@@ -66,7 +76,7 @@ int main(){
             }
             else if (logged == 2){
 
-                menuEmployer(logged,employes,produits,factures);
+                menuEmployer(logged,employes,produits,factures,clients);
             }
             else if (logged == 3){
                 //menu gerant

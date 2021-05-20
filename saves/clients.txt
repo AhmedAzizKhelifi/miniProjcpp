@@ -2,3 +2,6 @@ c0 nom prenom email mdp 1
 c1 5 5 5 5 1
 c2 5 5 5 5 0
 c3 kjldsg lkdsjgl dlsjflkj 123 1
+c4 5 5 5 5 1
+c5 c5 5 5 5 0
+c6 6 6 6 6 0
