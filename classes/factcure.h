@@ -156,12 +156,12 @@ ostream& operator<<(ostream& out,Facture& f)
     }
     else{
         // Facture fact("id idpers 6 100 31 12 2000", "10 12 13 14 15");
-        out << f.id << " " << f.idPersonelle << " " << f.remise << " ";
-        out << f.Date.get_jour()<< " "  << f.Date.get_mois()<< " " << f.Date.get_annee() << endl;
         for (unsigned int i = 0; i < f.idProduits.taille(); i++){
             out << f.idProduits[i] << " ";
         }
         out <<endl;
+        out << f.id << " " << f.idPersonelle << " " << f.remise << " ";
+        out << f.Date.get_jour()<< " "  << f.Date.get_mois()<< " " << f.Date.get_annee() << endl;
     }
     return out;
 } 

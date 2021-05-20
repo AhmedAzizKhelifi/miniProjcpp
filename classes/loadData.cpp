@@ -48,10 +48,11 @@ Container<Facture> LoadFacture(){
     char ch[101];
     file.seekg(0);
     while(true){
-        file.getline(ch,100,'\n');
-        c1.ajouter(ch);
-        file.getline(ch,100,'\n');
+        file.getline(ch,100,'\n'); //id produits
+        if(!isdigit(ch[0]) )break;
         c2.ajouter(ch);
+        file.getline(ch,100,'\n'); // facture details
+        c1.ajouter(ch);
         if(file.eof()) break;
     }
     file.close();

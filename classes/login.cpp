@@ -154,10 +154,17 @@ void menuClient(int &logged,Container<Produit> produits){
     switch (r)
     {
     case 1:
-        //produits:
-        header("Les produits");
-        cout << produits;
-        system("PAUSE");   
+        {
+            header("Produits\\Afficher");
+            std::cout << "\nNombre total des produits est: " << produits.taille() << ".\n";
+            produits = LoadProduit();
+            for (unsigned int i =0;i <produits.taille();i++){
+                Produit p = produits[i];
+                std::cout << p;
+            }
+            std::cout << ">>> ";
+            system("PAUSE");           
+        }
         break;
     case 0:
         logged = 0;
@@ -328,7 +335,7 @@ void menuEmployerProduits(Container<Produit>& produits){
     case 1:
         {
             header("Produits\\Afficher");
-            //std::cout << "\nNombre total des produits est: " << Produit::nombreTotalProduit() << ".\n";
+            std::cout << "\nNombre total des produits est: " << produits.taille() << ".\n";
             produits = LoadProduit();
             for (unsigned int i =0;i <produits.taille();i++){
                 Produit p = produits[i];
