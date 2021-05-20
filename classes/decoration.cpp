@@ -1,17 +1,49 @@
 #include "produit.h"
 #include<ctime>
+#include <string.h>
+#include "settings.h"
+
+void resetSettings(){
+    Setting s;
+    s.nom = "_";
+    s.prenom = "_";
+    s.email = "_";
+    s.id = "_";
+}
+
+std::string processId(std::string id){
+    string ch;
+    if (id[0] == 'c'){
+        ch = "Client " + id.substr(1,id.length()-1);
+        return ch;
+    }
+    else if (id[0] == 'e'){
+        ch = "Employer " + id.substr(1,id.length()-1);
+        return ch;
+    }
+    return id;
+}
 
 void timeline()
 {
   time_t t;
   time(&t);
   std::string curtime=ctime(&t);
-  std::cout<<curtime<<std::endl;
+  std::cout<<curtime;
 }
 void header(std::string path = ""){
     system("cls");
     std::cout << "APPLICATION NAME\\" << path << "\n";
     timeline();
+    Setting s;
+    if (!(s.id == "_")){
+        string ch = processId(s.id);
+        ch =ch+ ": "+ s.nom + " " + s.prenom; 
+        std::cout << ch << "\n\n";
+    }else{
+        std::cout << "\n";
+    }
+    
 }
 int ouiNon(std::string text = "_text_", std::string path ="_path_",int h = 1,int fullText = 0){
     std::string r;

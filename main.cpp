@@ -14,6 +14,7 @@
 #include"classes/factcure.h"
 //#include "classes/loadData.cpp"
 #include"classes/login.cpp" //+loadData
+#include "classes/settings.h"
 using namespace std;
 
 /* 
@@ -45,11 +46,23 @@ int main(){
     employes = LoadEmployer();
     factures = LoadFacture();   
     produits = LoadProduit();
-        int logged = 0;
-     while (true){
+    int logged = 0;
+    Setting s;
+
+      //  AFFICHAGE
+     for (unsigned int i = 0; i < clients.taille(); i++ ){
+        clients[i].afficher();
+        cout << "\n\n";
+    }
+    system("pause");
+
+
+    while (true){
+        
 
         if(logged==0)
         {
+            resetSettings();
             menu1(logged,clients,employes,produits,factures);
         }
         else if(logged == 1){

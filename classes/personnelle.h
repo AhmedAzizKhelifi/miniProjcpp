@@ -20,6 +20,9 @@ public:
 
   //get set
     string getId(){return id;}
+    string getNom(){return nom;}
+    string getPrenom(){return prenom;}
+    string getEmail(){return email;}
     string getPassword(){return password;}
 
 
@@ -37,6 +40,7 @@ public:
      void enregistrer();
      void Modifier();
      //ostream& operator <<(operator&,employer&);
+     int getTel(){return num_telf;}
 };
 
 employer::employer(string line, int x){

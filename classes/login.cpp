@@ -2,6 +2,7 @@
 #include "personnelle.h"
 #include "LoadData.cpp"
 #include"historique.h"
+#include "settings.h"
 #include <conio.h>
 
 
@@ -53,17 +54,33 @@ int menu1Choix(std::string path = "___"){
 
 
 int rechercheLogin(std::string id, std::string password,Container<client> clients, Container<employer> employes){
+    Setting s;
     if(id[0] == 'c'){
         for(int i = 0; i<clients.taille(); i++){
             if(clients[i].getId() == id)
-                if(clients[i].getPassword() == password)
+            {
+                if(clients[i].getPassword() == password){
+                    s.setNom(clients[i].getNom());
+                    s.setPrenom(clients[i].getPrenom());
+                    s.setId(clients[i].getId());
+                    s.setEmail(clients[i].getEmail());
                     return 10;
+                }
+            }
+
         }
     }else if(id[0] == 'e'){
         for(int i = 0; i<employes.taille(); i++){
-            if(employes[i].getId() == id)
-                if(employes[i].getPassword() == password)
+            if(employes[i].getId() == id){
+                if(employes[i].getPassword() == password){
+                    s.setNom(employes[i].getNom());
+                    s.setPrenom(employes[i].getPrenom());
+                    s.setId(employes[i].getId());
+                    s.setEmail(employes[i].getEmail());
+                    s.setTel(employes[i].getTel());
                     return 11;
+                }
+            }
         }
     }/* else if(id[0] == 'g'){
         for(int i = 0; i<employes.taille(); i++){
@@ -72,8 +89,6 @@ int rechercheLogin(std::string id, std::string password,Container<client> client
                     return 11;
         }
     } */
-
-    
     return 0;
 }
 
@@ -101,6 +116,7 @@ int choixLogin(Container<client> clients, Container<employer> employes){
                 std::string tmp;
                 std::getline(std::cin, tmp);
         }
+     
 
     header("Login");
     std::cout << "0: Quitter\n\n";
@@ -162,6 +178,14 @@ void menuClient(int &logged,Container<Produit> produits){
                 Produit p = produits[i];
                 std::cout << p;
             }
+            std::cout << ">>> ";
+            system("PAUSE");           
+        }
+        break;
+    case 2:
+        {
+            header("Produits\\Commander");
+
             std::cout << ">>> ";
             system("PAUSE");           
         }
