@@ -37,3 +37,27 @@ Container<employer> LoadEmployer(){
     return employes;
 }
 
+//Container<Facture>
+Container<Facture> LoadFacture(){
+    std::fstream file;
+    file.open("saves\\facture.txt",std::ios::in|std::ios::app);
+    Container<std::string> c1 ;
+    Container<std::string> c2 ;
+
+    Container<Facture> factures;
+    char ch[101];
+    file.seekg(0);
+    while(true){
+        file.getline(ch,100,'\n');
+        c1.ajouter(ch);
+        file.getline(ch,100,'\n');
+        c2.ajouter(ch);
+        if(file.eof()) break;
+    }
+    file.close();
+    for (unsigned int i = 0; i < c1.taille(); i++){
+        Facture fact(c1[i],c2[i]);
+        factures.ajouter(fact);
+    }
+    return factures;
+}

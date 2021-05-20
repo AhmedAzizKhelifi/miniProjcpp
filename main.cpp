@@ -8,11 +8,12 @@
 #include"classes/fichier.h" // + #include"classes/container.h"
 //#include "classes/utilityFunctions.h"
 #include"classes/menus.h"
-#include"classes/login.cpp"
+
 #include"classes/date.h"
 #include"classes/commande.h"
 #include"classes/factcure.h"
 //#include "classes/loadData.cpp"
+#include"classes/login.cpp" //+loadData
 using namespace std;
 
 /* 
@@ -37,12 +38,14 @@ int main(){
     
     Container <client> clients;
     Container<employer> employes;
+    Container<Facture> factures;
+    Container <Produit> produits;
+    
     clients = LoadClients();
     employes = LoadEmployer();
-    Container <Produit> produits;
+    factures = LoadFacture();   
     produits = LoadProduit();
-    Facture fact("id idpers 6 100 31 12 2000","10 12 13 14 15");
-    cout << fact;
+    cout << factures;
 
 //    system("PAUSE");
 
