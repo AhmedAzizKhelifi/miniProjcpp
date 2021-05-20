@@ -38,6 +38,7 @@ class employer:public personnelle
 {
  protected:    
     int num_telf;
+    //bool estGerant = false;
 public:
      employer();
      employer(string,int);

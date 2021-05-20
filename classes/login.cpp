@@ -8,6 +8,36 @@
 #include "fichier.h"
 #include <conio.h>
 
+void statgerant(Container<Facture> p,Container<employer> e)
+{
+    float sum,summonth,sumyear,salaires;
+    sum = 0;
+    summonth = 0;
+    sumyear = 0;
+    date today(20,05,2021);
+   for(int i=0;i<p.taille();i++)
+     {
+        if(p[i].getdate()==today)
+          sum+=p[i].getprix();
+        if(p[i].getdate().get_mois()==5 && p[i].getdate().get_annee() == 2021)
+          summonth+=p[i].getprix();
+        if(p[i].getdate().get_annee()==2021)
+           sumyear+=p[i].getprix();  
+      }
+    cout<<"les somme des ventes d'aujourd'hui ="<<sum<<endl; 
+    cout<<"les somme des ventes du mois ="<<summonth<<endl; 
+    cout<<"les somme des ventes d'année ="<<sumyear<<endl;
+/*     cout<<"la somme des achats d'aujourd'hui ="<<
+    cout<<"la somme des achats du mois ="<<;
+    cout<<"la somme des achats d'année ="<<; */
+  /*   for(int i=0;i<e.taille();i++)
+    {
+        salaires+=e[i].getsalaires();
+    }
+    cout<<"la somme des salaires des employes ="<<salaires<<endl;
+    cout<<"autres depenses ="; */
+}
+
 
 void saveProductToFile(Container<Produit>& produits){
     Produit p;  

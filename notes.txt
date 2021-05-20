@@ -12,3 +12,17 @@
 
 + les menus.
 + fix recherche fel login w enregistrement taa el personnel fel fichier(ajouter c si client ...)
+
+
+
+
+
+----
++ estGerant
+  - add emplyer
+  - set remise sur carte
+  - set remise dates
+
++ quit when typing facture, inscription ...
+
++ auto get jour today sinon set date > today

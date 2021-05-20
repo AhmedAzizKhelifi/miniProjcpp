@@ -48,8 +48,8 @@ int main(){
     produits = LoadProduit();
     int logged = 0;
     Setting s;
- 
-        while (true){
+    statgerant(factures,employes);
+/*         while (true){
             
 
             if(logged==0)
@@ -68,7 +68,7 @@ int main(){
             else if (logged == 3){
                 //menu gerant
             }
-        } 
+        }  */
 }
 
 

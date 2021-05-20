@@ -32,6 +32,8 @@ public:
     void setPrintTo(char c) {printTo = c;}
     string getId(){return id;}
     string getIdPersonelle(){return idPersonelle;}
+    date getdate(){return Date;}
+    float getprix(){return prix_total;}
     friend ostream& operator<<(ostream&,Facture&);
     bool operator==(std::string); // == bel id 
     //friend istream& operator>>(istream&,Facture&);
