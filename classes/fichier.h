@@ -1,6 +1,9 @@
+#ifndef FICHIER_H
+#define FICHIER_H
 
 #include"container.h"
 #include "factcure.h"
+
 
 class Fichier{
     private:
@@ -13,6 +16,7 @@ class Fichier{
         void appendStr(std::string);
         void appendProduit(Produit);
         void appendFacture(Facture); 
+        //void appendClient(client); 
         void reset(); //supprimer le contenu du fichier
         //surchage
         friend std::ostream& operator << (std::ostream&,Fichier&);
@@ -108,3 +112,13 @@ void Fichier::appendFacture(Facture fact){
     fact.setPrintTo('0');
     file.close();
 }
+
+//void Fichier::appendClient(client cli){
+/*     file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
+    fact.setPrintTo('1');
+    file << fact;
+    fact.setPrintTo('0');
+    file.close(); */
+//}
+
+#endif

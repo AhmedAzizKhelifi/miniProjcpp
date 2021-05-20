@@ -1,7 +1,24 @@
 #include "produit.h"
 #include<ctime>
 #include <string.h>
+#include <conio.h>
 #include "settings.h"
+
+void pause(){
+    system("pause");
+}
+std::string readPassword(){
+    char c = ' ';
+    std::string password = "";
+    while (c!=13){  // c = 13 is 'Enter' key.
+    c = getch();
+    if (c!=13){
+        password +=c;
+        std::cout << "*";
+        }
+    }
+    return password;
+}
 
 void resetSettings(){
     Setting s;

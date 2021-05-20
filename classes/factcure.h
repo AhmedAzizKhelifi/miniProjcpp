@@ -26,7 +26,7 @@ public:
     Facture(string ,string ,float ,int ,int ,int, Container<Produit>);
     string getid(){return id;}
     void saisir_fact(Container<Produit>);
-    void saisir_fact(Container<Produit>, std::string idP, float =0.0);
+    void saisir_fact(Container<Produit>, std::string idP, bool ,float =0.0);
     int nombreDeProduit(){return idProduits.taille();}
 
     void setPrintTo(char c) {printTo = c;}
@@ -106,12 +106,16 @@ void Facture::saisir_fact(Container<Produit> produits){
 
 }
 
-void Facture::saisir_fact(Container<Produit> produits, std::string idP,float _remise){
+void Facture::saisir_fact(Container<Produit> produits, std::string idP,bool carteF,float _remise){
     cout << "Saisir l'ID du facture: \n>>>";
     cin >> id;
     idPersonelle = idP;
    // cout << "Saisir le remise en %: \n>>>";
-    remise =_remise;
+    if(carteF){
+        cout << "Vous obtenez une remise de 5% (Carte fidelite):  \n>>>";
+        remise = 5;
+    }else
+    {remise =_remise;}
     Date.saisir_date();
     int r;
     bool validation = false;

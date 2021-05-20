@@ -48,8 +48,10 @@ int main(){
     produits = LoadProduit();
     int logged = 0;
     Setting s;
-
-
+/*     client c;
+    c.saisirClient(clients);
+    c.afficherClient();
+ */
     while (true){
         
 

@@ -1,7 +1,10 @@
+#ifndef PERSONELLE_H
+#define PERSONELLE_H
 #include<iostream>
 #include"string.h"
 #include<ostream>
 #include<vector>
+#include "fichier.h"
 using namespace std;
 class personnelle
 {
@@ -11,10 +14,13 @@ class personnelle
     string prenom;
     string email;
     string password;
+    char printTo = '0';
+
 public:
   personnelle(string ="",string ="",string ="",string ="",string ="");
   void afficher(); 
-  void aaa(){cout << "ljjk";}
+  void setPrintTo(char c){printTo =c;}
+
   //ostream& operator <<(operator&,personnelle&);
 
 
@@ -51,13 +57,90 @@ employer::employer(string line, int x){
 
 class client: public personnelle
 {
+    bool carteFidele = false;
    public:
-    client();
+    //client();
     client(string, int);
     client(string a="",string b="",string c="",string d="",string e=""):personnelle(a,b,c,d,e){}
     Container<client> LoadClients();
+    void afficherClient();
     void ModifierClient();
+    bool acarteFidele(){return carteFidele;}
+    void recevoirCarteFidele(){carteFidele=true; }
+    void saisirClient(Container<client>);
+
+    friend std::ostream& operator << (std::ostream&,client&); //afich
 };
+
+std::ostream& operator<< (std::ostream& out,client& cli){
+    if (cli.printTo='0'){
+        cli.afficherClient();
+    }else
+    {
+        out << cli.id << " " << cli.nom << " "<< cli.prenom << " " << cli.email << " " << cli.password;   
+    }
+    return out;
+    
+}
+
+
+
+void client::saisirClient(Container<client> clients){
+    cout << "ID Client: c"<< clients.taille();
+        /* string id;
+    string nom;
+    string prenom;
+    string email;
+    string password; */
+    id = "c" + std::to_string(clients.taille());
+    cout << "\nSaisir votre nom: \n>>> ";
+    cin >> nom;
+    cout << "Saisir votre prenom: \n>>> ";
+    cin >> prenom;   
+    cout << "Saisir votre email: \n>>> ";
+    cin >> email;
+    cout << "Saisir votre mot de passe:\n>>> ";
+    password = readPassword();
+   /*  cin >> id;
+    idPersonelle = idP;
+   // cout << "Saisir le remise en %: \n>>>";
+    if(carteF){
+        cout << "Vous obtenez une remise de 5% (Carte fidelite):  \n>>>";
+        remise = 5;
+    }else
+    {remise =_remise;}
+    Date.saisir_date();
+    int r;
+    bool validation = false;
+    //liste des produits :
+    do
+    {
+        validation = false;
+        cout << "Saisir l'ID du produit: \n>>>";
+        string idProduit;
+        cin >> idProduit;
+        if(produits.idintExist(idProduit))
+            idProduits.ajouter(idProduit);
+        else
+            cout << "\nID invalide.\n";
+        if(idProduits.taille()>0) 
+            r = ouiNon("Ajouter un autre produit?","path",0,1);
+        if(r==1) validation=true;
+        if(idProduits.taille()==0) validation = true;
+    } while (validation);
+    float _prix_total = 0.0;
+    for (unsigned int i = 0; i < idProduits.taille(); i++){
+        Produit p;
+        p = produits.getByintId(idProduits[i]);
+        _prix_total= _prix_total + p.getPrix();
+    }
+    prix_total = _prix_total- ((_prix_total*remise)/100); */
+}
+
+void client::afficherClient(){
+    afficher();
+    cout<<"A carte fidelite? "<< carteFidele<<endl;
+}
 Container<client> client::LoadClients(){
     Fichier f("clients");
     Container<std::string> c ;
@@ -71,7 +154,7 @@ Container<client> client::LoadClients(){
 }
 client::client(string line, int x){
     std::stringstream ss(line);
-    ss >> id >> nom>> prenom>> email >> password;
+    ss >> id >> nom>> prenom>> email >> password >> carteFidele;
 }
 employer::employer(string a,string b,string c,string d,string e,int i):personnelle(a,b,c,d,e)
 {
@@ -142,3 +225,5 @@ void client::ModifierClient()
     
     }
 }
+
+#endif

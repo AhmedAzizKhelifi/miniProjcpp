@@ -3,6 +3,7 @@
 #include "LoadData.cpp"
 #include"historique.h"
 #include "settings.h"
+#include "fichier.h"
 #include <conio.h>
 
 
@@ -25,9 +26,9 @@ void saveFacture(Container<Facture>& factures,Container<Produit> produits){
     std::cout << "\nFacture ajoutee avec success.\n\n>>> ";
 }
 
-void saveFacture(Container<Facture>& factures,Container<Produit> produits, std::string idP){
+void saveFacture(Container<Facture>& factures,Container<Produit> produits, std::string idP,bool carteF){
     Facture fact;  
-    fact.saisir_fact(produits,idP);
+    fact.saisir_fact(produits,idP,carteF);
     factures.ajouter(fact);
     Fichier f("facture");
     f.appendFacture(fact);
@@ -73,6 +74,7 @@ int rechercheLogin(std::string id, std::string password,Container<client> client
                     s.setPrenom(clients[i].getPrenom());
                     s.setId(clients[i].getId());
                     s.setEmail(clients[i].getEmail());
+                    s.setCarteF(clients[i].acarteFidele());
                     return 10;
                 }
             }
@@ -156,7 +158,7 @@ int choixClient(){
         try {
             system("cls");
             header("Acceuil");
-            std::cout << "1. Les produits\n2. Commander\n3. Historique\n\n0. Deconnecter\n\n";
+            std::cout << "1. Les produits\n2. Commander\n3. Historique\n 4. Recevoir une carte fidelite\n\n0. Deconnecter\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
@@ -195,7 +197,7 @@ void menuClient(int &logged,Container<Produit> produits,Container<Facture>& fact
     case 2:
         {
             header("Commender");
-            saveFacture(factures,produits,s.id);
+            saveFacture(factures,produits,s.id,s.carteF);
             std::cout << ">>> ";
             system("PAUSE");           
         }
@@ -212,6 +214,12 @@ void menuClient(int &logged,Container<Produit> produits,Container<Facture>& fact
             }
         }
         std::cout << "Nombre de commandes: " << nbFactures <<std::endl;
+        std::cout << ">>> ";
+        system("PAUSE");
+    }
+        break;
+    case 4:{
+        header("Carte  fid");
         std::cout << ">>> ";
         system("PAUSE");
     }
@@ -555,6 +563,16 @@ void menuLogin(int &logged,Container<client> clients, Container<employer> employ
     }
 }
 
+void menuInscription(Container<client> clients){
+    header("Inscription");
+    client c;
+    c.saisirClient(clients);
+    Fichier f("clients");
+    //f.appendProduit(p);
+    std::cout << "\nProduit ajoute avec success.\n\n>>> "; 
+    c.afficherClient();
+    pause();
+}
 void menu1(int &logged,Container<client> clients, Container<employer> employes, Container<Produit>& produits,Container<Facture>& factures){
     int r = menu1Choix("page1");
     switch (r)
@@ -564,6 +582,8 @@ void menu1(int &logged,Container<client> clients, Container<employer> employes, 
         break;
     
     case 2: //inscri
+        menuInscription(clients);
+
         break;
 
     default:
