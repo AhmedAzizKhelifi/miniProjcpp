@@ -13,7 +13,7 @@ void header(std::string path = ""){
     std::cout << "APPLICATION NAME\\" << path << "\n";
     timeline();
 }
-int ouiNon(std::string text = "_text_", std::string path ="_path_",int h = 1){
+int ouiNon(std::string text = "_text_", std::string path ="_path_",int h = 1,int fullText = 0){
     std::string r;
     bool validation = true;
     std::cin.exceptions(std::istream::failbit);
@@ -23,7 +23,10 @@ int ouiNon(std::string text = "_text_", std::string path ="_path_",int h = 1){
                 header(path);
             else
                 std::cout << "\n";
-            std::cout << "(deco)Vous voulez vraiment " << text << "?[O/n]\n\n";
+            if (fullText==1)
+                std::cout << text << "[O/n]\n\n";
+            else
+                std::cout << "(deco)Vous voulez vraiment " << text << "?[O/n]\n\n";
             std::cout << ">>>";
             std::cin >> r;
             //system("cls");
@@ -57,7 +60,7 @@ int readInt(std::string path ="___",std::string text ="___", int h = 1){
             else
                 std::cout << "\n";
             std::cout << text;
-            std::cout << ">>>";
+            std::cout << ">>> ";
             std::cin >> r;
            // validation = (r>=0 && r<3); // menu tests
         }
@@ -73,6 +76,35 @@ int readInt(std::string path ="___",std::string text ="___", int h = 1){
 
     return r;
 }
+
+float readFloat(std::string path ="___",std::string text ="___", int h = 1){
+    float r;
+    bool validation = true;
+    std::cin.exceptions(std::istream::failbit);
+    do {
+        try {
+            if (h ==1)
+                header(path);
+            else
+                std::cout << "\n";
+            std::cout << text;
+            std::cout << ">>> ";
+            std::cin >> r;
+           // validation = (r>=0 && r<3); // menu tests
+        }
+        catch (const std::exception& e) {
+            validation = false;
+            //cout << "PLEASE INSERT A VALID OPTION." << endl;
+            std::cin.clear();
+            std::string tmp;
+            std::getline(std::cin, tmp);
+        }
+       
+    } while (validation == false);
+
+    return r;
+}
+
 /* 
 int menuPrincipaleChoix(std::string path = "Acceuil"){
     int r;

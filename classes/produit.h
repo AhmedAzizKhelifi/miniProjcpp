@@ -39,6 +39,7 @@ public:
 
     
     int getId(){return id;}
+    float getPrix() {return prix;}
     char getPrintTo(){return printTo;}
     void setPrintTo(char c){printTo = c;}
     void setNombreTotal(int nb){nombreTotal= nb;}

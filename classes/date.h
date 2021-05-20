@@ -17,9 +17,16 @@ class date
      void saisir_date();
      void afficher_date();
      int est_sup(date);
+
      void set_jour(int j){jour=j;}
      void set_mois(int m){mois=m;}
      void set_annee(int a){annee=a;}
+
+     int get_jour(){return jour;}
+     int get_mois(){return mois;}
+     int get_annee(){return annee;}
+
+
      friend ostream& operator<<(ostream&,date&);
      friend istream& operator>>(istream&,date&);
      bool operator<=(date&);

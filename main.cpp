@@ -41,13 +41,14 @@ int main(){
     employes = LoadEmployer();
     Container <Produit> produits;
     produits = LoadProduit();
-    cout << produits;
-    Facture fact("_id", "_idPersonelle",0,5,5,2000,produits);
-    system("PAUSE");
+    Facture fact("id idpers 6 100 31 12 2000","10 12 13 14 15");
+    cout << fact;
+
+//    system("PAUSE");
 
 }
 //     client e("1","2","3","4","5");
-
+//    Facture fact("_id", "_idPersonelle",50,5,5,2000,produits);
 /*    AFFICHAGE
      for (unsigned int i = 0; i < clients.taille(); i++ ){
         clients[i].afficher();
