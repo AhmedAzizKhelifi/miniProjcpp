@@ -49,13 +49,6 @@ int main(){
     int logged = 0;
     Setting s;
 
-      //  AFFICHAGE
-     for (unsigned int i = 0; i < clients.taille(); i++ ){
-        clients[i].afficher();
-        cout << "\n\n";
-    }
-    system("pause");
-
 
     while (true){
         
