@@ -3,8 +3,7 @@
 
 #include"container.h"
 #include "factcure.h"
-
-
+#include "personnelle.h"
 class Fichier{
     private:
         std::string nom;
@@ -16,7 +15,7 @@ class Fichier{
         void appendStr(std::string);
         void appendProduit(Produit);
         void appendFacture(Facture); 
-        //void appendClient(client); 
+        void appendClient(client); 
         void reset(); //supprimer le contenu du fichier
         //surchage
         friend std::ostream& operator << (std::ostream&,Fichier&);
@@ -83,6 +82,12 @@ void Fichier::appendProduit(Produit p){
     file.close();   
 }
 
+void Fichier::appendClient(client cli){
+    file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
+    string ch = cli.clientToStr();
+    file << ch << "\n";
+    file.close();
+}
 void Fichier::reset(){
     file.open("saves\\"+nom+".txt",std::ios::out | std::ios::trunc);
     file.close();

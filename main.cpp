@@ -48,32 +48,27 @@ int main(){
     produits = LoadProduit();
     int logged = 0;
     Setting s;
-/*     client c;
-    c.saisirClient(clients);
-    c.afficherClient();
- */
-    while (true){
-        
+ 
+        while (true){
+            
 
-        if(logged==0)
-        {
-            resetSettings();
-            menu1(logged,clients,employes,produits,factures);
-        }
-        else if(logged == 1){
-            /* std::cout << "logged : " << logged << std::endl;
-            system("PAUSE"); */
-            menuClient(logged,produits,factures);
-        }
-        else if (logged == 2){
-           /*  std::cout << "logged : " << logged << std::endl;
-            system("PAUSE"); */
-            menuEmployer(logged,employes,produits,factures);
-        }
-        else if (logged == 3){
-            //menu gerant
-        }
-    }
+            if(logged==0)
+            {
+                resetSettings();
+                menu1(logged,clients,employes,produits,factures);
+            }
+            else if(logged == 1){
+
+                menuClient(logged,produits,factures,clients);
+            }
+            else if (logged == 2){
+
+                menuEmployer(logged,employes,produits,factures);
+            }
+            else if (logged == 3){
+                //menu gerant
+            }
+        } 
 }
 
 

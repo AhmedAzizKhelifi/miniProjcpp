@@ -1,3 +1,5 @@
+#ifndef LOGIN_CPP
+#define LOGIN_CPP
 
 #include "personnelle.h"
 #include "LoadData.cpp"
@@ -158,11 +160,11 @@ int choixClient(){
         try {
             system("cls");
             header("Acceuil");
-            std::cout << "1. Les produits\n2. Commander\n3. Historique\n 4. Recevoir une carte fidelite\n\n0. Deconnecter\n\n";
+            std::cout << "1. Les produits\n2. Commander\n3. Historique\n4. Recevoir une carte fidelite\n\n0. Deconnecter\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
-            validation = (r>=0 && r<4); // menu tests
+            validation = (r>=0 && r<=4); // menu tests
         }
         catch (const std::exception& e) {
             validation = false;
@@ -176,7 +178,7 @@ int choixClient(){
 
     return r;
 }
-void menuClient(int &logged,Container<Produit> produits,Container<Facture>& factures){
+void menuClient(int &logged,Container<Produit> produits,Container<Facture>& factures,Container<client>& clients){
     int r = choixClient();
     Setting s;
     switch (r)
@@ -196,7 +198,7 @@ void menuClient(int &logged,Container<Produit> produits,Container<Facture>& fact
         break;
     case 2:
         {
-            header("Commender");
+            header("Commander");
             saveFacture(factures,produits,s.id,s.carteF);
             std::cout << ">>> ";
             system("PAUSE");           
@@ -220,6 +222,30 @@ void menuClient(int &logged,Container<Produit> produits,Container<Facture>& fact
         break;
     case 4:{
         header("Carte  fid");
+        if(s.carteF){
+            std::cout << "Vous avez deja une carte de fidelite.\n";
+        }else{
+            std::cout << "working\n";
+            for (unsigned int i =0;i <clients.taille();i++){
+                if(clients[i].getId() == s.id){
+                    client cli;
+                    cli = clients[i];
+                    cli.recevoirCarteFidele();
+                    Fichier f("clients");
+                    f.reset();
+                    for (unsigned int j =0;j <clients.taille();j++){
+                        client c;
+                        if(i==j)
+                            c= cli;
+                        else
+                            c = clients[j];
+                        f.appendClient(c);
+                    }
+                    s.setCarteF(true);
+                }
+            }
+            
+        }
         std::cout << ">>> ";
         system("PAUSE");
     }
@@ -542,7 +568,7 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
         break;
     }
 }
-void menuLogin(int &logged,Container<client> clients, Container<employer> employes,Container<Produit> produits,Container<Facture>& factures){
+void menuLogin(int &logged,Container<client>& clients, Container<employer> employes,Container<Produit> produits,Container<Facture>& factures){
     int r = choixLogin(clients,employes);
     switch (r)
     {
@@ -552,7 +578,7 @@ void menuLogin(int &logged,Container<client> clients, Container<employer> employ
         break;
     case 10:
         logged = 1;
-        menuClient(logged,produits,factures);
+        menuClient(logged,produits,factures,clients);
         break;
     case 11:
         logged = 2;
@@ -563,17 +589,18 @@ void menuLogin(int &logged,Container<client> clients, Container<employer> employ
     }
 }
 
-void menuInscription(Container<client> clients){
+void menuInscription(Container<client>& clients){
     header("Inscription");
     client c;
     c.saisirClient(clients);
     Fichier f("clients");
-    //f.appendProduit(p);
-    std::cout << "\nProduit ajoute avec success.\n\n>>> "; 
-    c.afficherClient();
+    clients.ajouter(c);
+    f.appendClient(c);
+    
+    std::cout << "\nVous etes inscri.\n\n>>> "; 
     pause();
 }
-void menu1(int &logged,Container<client> clients, Container<employer> employes, Container<Produit>& produits,Container<Facture>& factures){
+void menu1(int &logged,Container<client>& clients, Container<employer> employes, Container<Produit>& produits,Container<Facture>& factures){
     int r = menu1Choix("page1");
     switch (r)
     {
@@ -583,10 +610,11 @@ void menu1(int &logged,Container<client> clients, Container<employer> employes, 
     
     case 2: //inscri
         menuInscription(clients);
-
         break;
 
     default:
         break;
     }
 }
+
+#endif

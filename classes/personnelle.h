@@ -1,10 +1,11 @@
 #ifndef PERSONELLE_H
 #define PERSONELLE_H
+
 #include<iostream>
 #include"string.h"
 #include<ostream>
 #include<vector>
-#include "fichier.h"
+
 using namespace std;
 class personnelle
 {
@@ -14,12 +15,12 @@ class personnelle
     string prenom;
     string email;
     string password;
-    char printTo = '0';
+    
 
 public:
   personnelle(string ="",string ="",string ="",string ="",string ="");
   void afficher(); 
-  void setPrintTo(char c){printTo =c;}
+  
 
   //ostream& operator <<(operator&,personnelle&);
 
@@ -58,8 +59,10 @@ employer::employer(string line, int x){
 class client: public personnelle
 {
     bool carteFidele = false;
+    char printTo = '0';
    public:
     //client();
+    
     client(string, int);
     client(string a="",string b="",string c="",string d="",string e=""):personnelle(a,b,c,d,e){}
     Container<client> LoadClients();
@@ -69,20 +72,36 @@ class client: public personnelle
     void recevoirCarteFidele(){carteFidele=true; }
     void saisirClient(Container<client>);
 
-    friend std::ostream& operator << (std::ostream&,client&); //afich
+    
+    void setPrintTo(char c){printTo = c;cout<<"Pt: " << printTo <<endl;}
+    /* friend std::ostream& operator << (std::ostream&,client&); //afich */
+    string clientToStr();
+
 };
 
+string client::clientToStr(){
+    string ch;
+    ch = id + " " + nom + " " + prenom + " " + email + " " + password + " ";
+    if(carteFidele)
+        ch += "1";
+    else
+        ch += "0";
+    return ch;
+}
+/* 
 std::ostream& operator<< (std::ostream& out,client& cli){
     if (cli.printTo='0'){
+        cout << "0";
         cli.afficherClient();
     }else
     {
+        cout << "1\n";
         out << cli.id << " " << cli.nom << " "<< cli.prenom << " " << cli.email << " " << cli.password;   
     }
     return out;
     
 }
-
+ */
 
 
 void client::saisirClient(Container<client> clients){
@@ -141,7 +160,7 @@ void client::afficherClient(){
     afficher();
     cout<<"A carte fidelite? "<< carteFidele<<endl;
 }
-Container<client> client::LoadClients(){
+/* Container<client> client::LoadClients(){
     Fichier f("clients");
     Container<std::string> c ;
     c=f.fillContainer();
@@ -151,7 +170,7 @@ Container<client> client::LoadClients(){
         clients.ajouter(client(c[i],1));
     }
     return clients;
-}
+} */
 client::client(string line, int x){
     std::stringstream ss(line);
     ss >> id >> nom>> prenom>> email >> password >> carteFidele;
