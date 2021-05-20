@@ -10,6 +10,7 @@ class Setting{
     static string id;
     static string tel;
     static bool carteF;
+    static float remiseSurCarteF;
 
     void setNom(string _nom){nom = _nom;}
     void setPrenom(string _prenom){prenom = _prenom;}
@@ -24,4 +25,5 @@ string Setting::email="_";
 string Setting::id="_";
 string Setting::tel="_";
 bool Setting::carteF=false;
+float Setting::remiseSurCarteF=5.0;
 #endif

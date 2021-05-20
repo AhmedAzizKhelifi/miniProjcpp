@@ -107,13 +107,15 @@ void Facture::saisir_fact(Container<Produit> produits){
 }
 
 void Facture::saisir_fact(Container<Produit> produits, std::string idP,bool carteF,float _remise){
+    Setting s;
+    
     cout << "Saisir l'ID du facture: \n>>>";
     cin >> id;
     idPersonelle = idP;
    // cout << "Saisir le remise en %: \n>>>";
     if(carteF){
-        cout << "Vous obtenez une remise de 5% (Carte fidelite):  \n>>>";
-        remise = 5;
+        cout << "Vous obtenez une remise de " << s.remiseSurCarteF <<"% (Carte fidelite):  \n>>>";
+        remise = s.remiseSurCarteF;
     }else
     {remise =_remise;}
     Date.saisir_date();
