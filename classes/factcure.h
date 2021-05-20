@@ -29,8 +29,10 @@ public:
     int nombreDeProduit(){return idProduits.taille();}
 
     void setPrintTo(char c) {printTo = c;}
+    string getId(){return id;}
 
     friend ostream& operator<<(ostream&,Facture&);
+    bool operator==(std::string); // == bel id 
     //friend istream& operator>>(istream&,Facture&);
 };
 
@@ -83,7 +85,7 @@ void Facture::saisir_fact(Container<Produit> produits){
         cout << "Saisir l'ID du produit: \n>>>";
         string idProduit;
         cin >> idProduit;
-        if(produits.idExist(idProduit))
+        if(produits.idintExist(idProduit))
             idProduits.ajouter(idProduit);
         else
             cout << "\nID invalide.\n";
@@ -95,7 +97,7 @@ void Facture::saisir_fact(Container<Produit> produits){
     float _prix_total = 0.0;
     for (unsigned int i = 0; i < idProduits.taille(); i++){
         Produit p;
-        p = produits.getById(idProduits[i]);
+        p = produits.getByintId(idProduits[i]);
         _prix_total= _prix_total + p.getPrix();
     }
     prix_total = _prix_total- ((_prix_total*remise)/100);
@@ -122,7 +124,7 @@ Facture::Facture(string _id,string _idPersonelle,float _remise,int j,int m,int a
         cout << "Saisir l'ID du produit: \n>>>";
         string idProduit;
         cin >> idProduit;
-        if(produits.idExist(idProduit))
+        if(produits.idintExist(idProduit))
             idProduits.ajouter(idProduit);
         else
             cout << "\nID invalide.\n";
@@ -134,7 +136,7 @@ Facture::Facture(string _id,string _idPersonelle,float _remise,int j,int m,int a
     float _prix_total = 0.0;
     for (unsigned int i = 0; i < idProduits.taille(); i++){
         Produit p;
-        p = produits.getById(idProduits[i]);
+        p = produits.getByintId(idProduits[i]);
         _prix_total= _prix_total + p.getPrix();
     }
     prix_total = _prix_total- ((_prix_total*remise)/100);
@@ -163,6 +165,14 @@ ostream& operator<<(ostream& out,Facture& f)
     }
     return out;
 } 
+
+
+bool Facture::operator==(std::string _id){ //id
+    if (id==_id)
+        return true;
+    else
+        return false;
+}
 /* 
 void Facture::saisir_fact()
 {

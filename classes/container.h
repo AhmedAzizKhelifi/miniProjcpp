@@ -7,8 +7,10 @@ class Container{
         void supprimer(std::string);
         void modifier(std::string);
         int biggerId();
-        bool idExist(std::string);
-        T getById(std::string);
+        bool idintExist(std::string);
+        bool idstrExist(std::string);
+        T getByintId(std::string);
+        T getBystrId(std::string);
         int taille(){return tab.size();}
         T operator[](int);
         template<class U>
@@ -26,7 +28,7 @@ void Container<T>::ajouter(T element){
 }
 
 template<class T>
-bool Container<T>::idExist(std::string id){
+bool Container<T>::idintExist(std::string id){
     for(unsigned int i = 0; i<taille();i++){
         T produit = tab[i];
         if (std::to_string(produit.getId())==id){
@@ -37,15 +39,38 @@ bool Container<T>::idExist(std::string id){
 }
 
 template<class T>
-T Container<T>::getById(std::string id){
+bool Container<T>::idstrExist(std::string id){
     for(unsigned int i = 0; i<taille();i++){
         T produit = tab[i];
-        if (std::to_string(produit.getId())==id){
-            return produit;
+        if (produit.getId()==id){
+            return true;
+        }
+    }
+    return false;
+}
+
+template<class T>
+T Container<T>::getByintId(std::string id){
+    for(unsigned int i = 0; i<taille();i++){
+        T element = tab[i];
+        if (std::to_string(element.getId())==id){
+            return element;
         }
     }
 
-    return Produit();
+    return T();
+}
+
+template<class T>
+T Container<T>::getBystrId(std::string id){
+    for(unsigned int i = 0; i<taille();i++){
+        T element = tab[i];
+        if (element.getId()==id){
+            return element;
+        }
+    }
+
+    return T();
 }
 
 template<class T>

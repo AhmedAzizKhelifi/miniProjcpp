@@ -237,7 +237,7 @@ int choixEmployerCommandes(){
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
-            validation = (r>=0 && r<3); // menu tests
+            validation = (r>=0 && r<=3); // menu tests
         }
         catch (const std::exception& e) {
             validation = false;
@@ -275,8 +275,43 @@ void menuEmployerCommande(Container<Produit> produits,Container<Facture>& factur
         system("PAUSE");
         break;
     case 3:
-        header("suppr");
-        system("PAUSE");
+        {
+/*             header("suppr");
+            system("PAUSE");    */  
+            r  = ouiNon("supprimer une commande","Commandes\\Supprimer");
+            if (r == 1){
+                header("Commande\\Supprimer");
+                std::string id;
+                std::cout << "Saisir l'id du commande a supprimer.\n\n>>> ";
+                std::cin >> id;
+                Facture fact = factures.getBystrId(id);
+                if (factures.idstrExist(id))
+                {
+                    header("Commandes\\Supprimer");
+                    std::cout << fact;
+                    r  = ouiNon("supprimer commande ID:  "+ id + " ","Commandes\\Supprimer",0);
+                    Facture fact = factures.getBystrId(id);
+                    std::cout << fact;
+                    if (r == 1){
+                        factures.supprimer(id);
+                        Fichier f("facture");
+                        f.reset();
+                        for (unsigned int i =0;i <factures.taille();i++){
+                            Facture fact = factures[i];
+                            f.appendFacture(fact);
+                            header("Commandes\\Ajouter");
+                            std::cout << "Commande supprimer avec succes.\n\n>>> ";
+                            system("PAUSE");
+                        }
+                    }else  break;
+
+                }else{
+                        std::cout << "Id n'existe pas.\n\n>>> ";
+                        system("PAUSE");
+                        break;
+                }
+            }
+        }
         break;
     default:
         break;
@@ -327,9 +362,9 @@ void menuEmployerProduits(Container<Produit>& produits){
                 std::string id;
                 std::cout << "Saisir l'id du produit a modifier.\n\n>>> ";
                 std::cin >> id;
-                if(produits.idExist(id)){
+                if(produits.idintExist(id)){
                     header("Produits\\Modifier");
-                    Produit p = produits.getById(id);
+                    Produit p = produits.getByintId(id);
                     std::cout << p;
                     r  = ouiNon("modifier produit ID:  "+ id + " ","Produits\\Modifier",0);
 
@@ -338,7 +373,7 @@ void menuEmployerProduits(Container<Produit>& produits){
                         {    
                             produits.modifier(id);
                             r = ouiNon("continuer a modifier le produit ID:  "+ id + " ","Produits\\Modifier",0);
-                            Produit p = produits.getById(id);
+                            Produit p = produits.getByintId(id);
                             std::cout << p;
                         } while (r==1);
                         
@@ -379,10 +414,10 @@ void menuEmployerProduits(Container<Produit>& produits){
                 std::string id;
                 std::cout << "Saisir l'id du produit a supprimer.\n\n>>> ";
                 std::cin >> id;
-                if(produits.idExist(id)){
+                if(produits.idintExist(id)){
 
                     r  = ouiNon("supprimer produit ID:  "+ id + " ","Produits\\Supprimer");
-                    Produit p = produits.getById(id);
+                    Produit p = produits.getByintId(id);
                     std::cout << p;
                     
                     if (r == 1){

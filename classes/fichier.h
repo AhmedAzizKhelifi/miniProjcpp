@@ -30,7 +30,7 @@ class Fichier{
 
 Fichier::Fichier(std::string nom){
     this-> nom = nom;
-    this->file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
+    this->file.open("saves\\"+nom+".txt",std::ios::in);
     if(!file.is_open()) std::cout << "not open";
     file.close();
 }
