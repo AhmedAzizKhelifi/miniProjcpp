@@ -1,9 +1,15 @@
+#ifndef FACTURE_H
+#define FACTURE_H
+
 #include<string>
 #include<vector>
 #include<iostream>
 #include<istream>
 #include<ostream>
 #include<fstream>
+
+#include"date.h"
+
 using namespace std;
 class Facture
 {
@@ -22,8 +28,10 @@ public:
     void saisir_fact(Container<Produit>);
     int nombreDeProduit(){return idProduits.taille();}
 
+    void setPrintTo(char c) {printTo = c;}
+
     friend ostream& operator<<(ostream&,Facture&);
-    friend istream& operator>>(istream&,Facture&);
+    //friend istream& operator>>(istream&,Facture&);
 };
 
 Facture::Facture(string line1,string line2){
@@ -135,21 +143,23 @@ Facture::Facture(string _id,string _idPersonelle,float _remise,int j,int m,int a
 ostream& operator<<(ostream& out,Facture& f)
 {
     if(f.printTo=='0') { //to screen
-        out<<"\n Affichage de la facture : "<<endl;
-        out<<"ID: "<<f.id<<endl;
-        out<<"ID Personne: "<<f.idPersonelle<<endl;
-        out<<"Date: "<<f.Date.jour<<"/"<<f.Date.mois<<"/"<<f.Date.annee<<endl;
-        out<<"Id de(s) " << f.nombreDeProduit() << " produits: "<<f.idProduits;
-        out << "Remise: " << f.remise << "%\n";
-        out << "Prix apres remise: " << f.prix_total <<endl;
-        out << "Prix sans remise:" << f.prix_total / (1 - (f.remise/100));
+        //out<<"\n Affichage de la facture : "<<endl;
+        out<<"ID du facture: "<<f.id<<endl;
+        out<<"\tID Personne: "<<f.idPersonelle<<endl;
+        out<<"\tDate: "<<f.Date.jour<<"/"<<f.Date.mois<<"/"<<f.Date.annee<<endl;
+        out<<"\tId de(s) " << f.nombreDeProduit() << " produits: "<<f.idProduits;
+        out << "\tRemise: " << f.remise << "%\n";
+        out << "\tPrix apres remise: " << f.prix_total <<endl;
+        out << "\tPrix sans remise:" << f.prix_total / (1 - (f.remise/100));
     }
     else{
         // Facture fact("id idpers 6 100 31 12 2000", "10 12 13 14 15");
-        out << f.id << f.idPersonelle << f.remise << f.Date.get_jour() << f.Date.get_mois() << f.Date.get_annee() << endl;
+        out << f.id << " " << f.idPersonelle << " " << f.remise << " ";
+        out << f.Date.get_jour()<< " "  << f.Date.get_mois()<< " " << f.Date.get_annee() << endl;
         for (unsigned int i = 0; i < f.idProduits.taille(); i++){
-            out << f.idProduits[i];
+            out << f.idProduits[i] << " ";
         }
+        out <<endl;
     }
     return out;
 } 
@@ -181,3 +191,5 @@ istream& operator>>(istream& in,Facture& f)
     in>>f.Date.jour>>f.Date.mois>>f.Date.annee;
     return in;
 } */
+
+#endif

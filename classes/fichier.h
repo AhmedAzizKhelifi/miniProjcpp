@@ -1,5 +1,6 @@
 
 #include"container.h"
+#include "factcure.h"
 
 class Fichier{
     private:
@@ -11,6 +12,7 @@ class Fichier{
         Container<std::string> fillContainer(); // fill container by strings from file, line by line
         void appendStr(std::string);
         void appendProduit(Produit);
+        void appendFacture(Facture); 
         void reset(); //supprimer le contenu du fichier
         //surchage
         friend std::ostream& operator << (std::ostream&,Fichier&);
@@ -99,3 +101,10 @@ std::ostream& operator << (std::ostream& out,Fichier& f){
     return out;
 }
 
+void Fichier::appendFacture(Facture fact){
+    file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
+    fact.setPrintTo('1');
+    file << fact;
+    fact.setPrintTo('0');
+    file.close();
+}

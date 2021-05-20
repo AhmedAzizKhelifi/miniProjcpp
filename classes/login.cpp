@@ -1,3 +1,4 @@
+
 #include "personnelle.h"
 #include "LoadData.cpp"
 #include"historique.h"
@@ -12,6 +13,15 @@ void saveProductToFile(Container<Produit>& produits){
     f.appendProduit(p);
     std::cout << "\nProduit ajoute avec success.\n\n>>> ";
     system("PAUSE");
+}
+
+void saveFactureToFile(Container<Facture>& factures,Container<Produit> produits){
+    Facture fact;  
+    fact.saisir_fact(produits);
+    factures.ajouter(fact);
+    Fichier f("facture");
+    f.appendFacture(fact);
+    std::cout << "\nFacture ajoutee avec success.\n\n>>> ";
 }
 
 int menu1Choix(std::string path = "___"){
@@ -223,7 +233,7 @@ int choixEmployerCommandes(){
         try {
             system("cls");
             header("Commandes");
-            std::cout << "1. Historique\n2. Nouvelle commande\n3. Supprimer commande\n\n0. Retour\n\n";
+            std::cout << "1. Archive des factures\n2. Nouvelle commande\n3. Supprimer commande\n\n0. Retour\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
@@ -242,19 +252,26 @@ int choixEmployerCommandes(){
     return r;
 }
 
-void menuEmployerCommande(Container<Produit>& produits){
+void menuEmployerCommande(Container<Produit> produits,Container<Facture>& factures){
     int r = choixEmployerCommandes();
     switch (r)
     {
     case 0:
         break;
     case 1:
-        header("historique");
-        historique_gerant();
+        header("Commandes\\Archive des factures");
+        for (unsigned int i = 0; i < factures.taille(); i++){
+            Facture fact;
+            fact = factures[i];
+            std::cout << fact << "\n\n"; 
+        }
+        std::cout << ">>> ";
         system("PAUSE");
         break;
     case 2:
-        header("ajou");
+        header("Commandes\\Nouvelle Commande");
+        saveFactureToFile(factures,produits);
+        std::cout << ">>> ";
         system("PAUSE");
         break;
     case 3:
@@ -398,7 +415,7 @@ void menuEmployerProduits(Container<Produit>& produits){
     }    
 }
 
-void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>& produits){
+void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>& produits,Container<Facture>& factures){
     int r = choixEmployer();
      switch (r)
     {
@@ -412,7 +429,7 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
     break;
     case 2:
         {
-            menuEmployerCommande(produits);
+            menuEmployerCommande(produits,factures);
         }
     break;
     case 3:
@@ -424,7 +441,7 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
         break;
     }
 }
-void menuLogin(int &logged,Container<client> clients, Container<employer> employes,Container<Produit> produits){
+void menuLogin(int &logged,Container<client> clients, Container<employer> employes,Container<Produit> produits,Container<Facture>& factures){
     int r = choixLogin(clients,employes);
     switch (r)
     {
@@ -438,19 +455,19 @@ void menuLogin(int &logged,Container<client> clients, Container<employer> employ
         break;
     case 11:
         logged = 2;
-        menuEmployer(logged,employes,produits);
+        menuEmployer(logged,employes,produits,factures);
         break;
     default:
         break;
     }
 }
 
-void menu1(int &logged,Container<client> clients, Container<employer> employes, Container<Produit> produits){
+void menu1(int &logged,Container<client> clients, Container<employer> employes, Container<Produit>& produits,Container<Facture>& factures){
     int r = menu1Choix("page1");
     switch (r)
     {
     case 1: //cnx
-        menuLogin(logged, clients,employes,produits);
+        menuLogin(logged, clients,employes,produits,factures);
         break;
     
     case 2: //inscri

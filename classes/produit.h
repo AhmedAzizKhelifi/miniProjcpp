@@ -1,3 +1,6 @@
+#ifndef PRODUIT_H
+#define PRODUIT_H
+
 using namespace std;
 class Produit
 {
@@ -250,3 +253,5 @@ int Produit::nombreTotalProduit(){
 Produit::~Produit()
 {
 }
+
+#endif

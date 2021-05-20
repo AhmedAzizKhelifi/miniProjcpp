@@ -1,3 +1,6 @@
+#ifndef DATE_H
+#define DATE_H
+
 #include<string>
 #include<iostream>
 #include<istream>
@@ -202,3 +205,5 @@ int date::bissextile(int a)
     }
     return 0;
 }   
+
+#endif
