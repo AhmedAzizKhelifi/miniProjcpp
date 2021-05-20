@@ -16,9 +16,18 @@ void saveProductToFile(Container<Produit>& produits){
     system("PAUSE");
 }
 
-void saveFactureToFile(Container<Facture>& factures,Container<Produit> produits){
+void saveFacture(Container<Facture>& factures,Container<Produit> produits){
     Facture fact;  
     fact.saisir_fact(produits);
+    factures.ajouter(fact);
+    Fichier f("facture");
+    f.appendFacture(fact);
+    std::cout << "\nFacture ajoutee avec success.\n\n>>> ";
+}
+
+void saveFacture(Container<Facture>& factures,Container<Produit> produits, std::string idP){
+    Facture fact;  
+    fact.saisir_fact(produits,idP);
     factures.ajouter(fact);
     Fichier f("facture");
     f.appendFacture(fact);
@@ -186,7 +195,7 @@ void menuClient(int &logged,Container<Produit> produits,Container<Facture>& fact
     case 2:
         {
             header("Commender");
-
+            saveFacture(factures,produits,s.id);
             std::cout << ">>> ";
             system("PAUSE");           
         }
@@ -319,7 +328,7 @@ void menuEmployerCommande(Container<Produit> produits,Container<Facture>& factur
         break;
     case 2:
         header("Commandes\\Nouvelle Commande");
-        saveFactureToFile(factures,produits);
+        saveFacture(factures,produits);
         std::cout << ">>> ";
         system("PAUSE");
         break;

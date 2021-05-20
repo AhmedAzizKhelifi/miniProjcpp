@@ -26,6 +26,7 @@ public:
     Facture(string ,string ,float ,int ,int ,int, Container<Produit>);
     string getid(){return id;}
     void saisir_fact(Container<Produit>);
+    void saisir_fact(Container<Produit>, std::string idP, float =0.0);
     int nombreDeProduit(){return idProduits.taille();}
 
     void setPrintTo(char c) {printTo = c;}
@@ -105,6 +106,41 @@ void Facture::saisir_fact(Container<Produit> produits){
 
 }
 
+void Facture::saisir_fact(Container<Produit> produits, std::string idP,float _remise){
+    cout << "Saisir l'ID du facture: \n>>>";
+    cin >> id;
+    idPersonelle = idP;
+   // cout << "Saisir le remise en %: \n>>>";
+    remise =_remise;
+    Date.saisir_date();
+    int r;
+    bool validation = false;
+    //liste des produits :
+    do
+    {
+        validation = false;
+        cout << "Saisir l'ID du produit: \n>>>";
+        string idProduit;
+        cin >> idProduit;
+        if(produits.idintExist(idProduit))
+            idProduits.ajouter(idProduit);
+        else
+            cout << "\nID invalide.\n";
+        if(idProduits.taille()>0) 
+            r = ouiNon("Ajouter un autre produit?","path",0,1);
+        if(r==1) validation=true;
+        if(idProduits.taille()==0) validation = true;
+    } while (validation);
+    float _prix_total = 0.0;
+    for (unsigned int i = 0; i < idProduits.taille(); i++){
+        Produit p;
+        p = produits.getByintId(idProduits[i]);
+        _prix_total= _prix_total + p.getPrix();
+    }
+    prix_total = _prix_total- ((_prix_total*remise)/100);
+}
+
+
 
 Facture::Facture(string _id,string _idPersonelle,float _remise,int j,int m,int a, Container<Produit> produits)
 {
@@ -160,7 +196,7 @@ ostream& operator<<(ostream& out,Facture& f)
             out << f.idProduits[i] << " ";
         }
         out <<endl;
-        out << f.id << " " << f.idPersonelle << " " << f.remise << " " << f.prix_total;
+        out << f.id << " " << f.idPersonelle << " " << f.remise << " " << f.prix_total << " ";
         out << f.Date.get_jour()<< " "  << f.Date.get_mois()<< " " << f.Date.get_annee() << endl;
     }
     return out;
