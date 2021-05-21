@@ -126,11 +126,11 @@ int choixGerantStatistique(std::string path = "Statistique"){
         try {
             //system("cls");
             header(path);
-            std::cout << "1. Histogramme de revenue mensuel des factures par annee\n2. Somme des ventes\n3. Statistiques des clients\n\n0. Retour\n\n";
+            std::cout << "1. Histogramme de revenue mensuel des factures par annee\n2. Somme des ventes\n3. Statistiques des clients\n4. Depenses sous forme de salaires employes\n\n0. Retour\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
-            validation = r>=0 && r<=3; // menu tests
+            validation = r>=0 && r<=4; // menu tests
         }   
         catch (const std::exception& e) {
             validation = false;
@@ -573,6 +573,13 @@ void menuGerantStatistique(Container<Facture> factures,Container<employer> emplo
             pause();
         }
     break;
+    case 4:
+    {
+        header("Statistique\\Depenses sous forme de salaires employes");
+        statDepenseEnSalaireEmployer(employes);
+        std::cout << "\n\n>>> ";
+        pause(); 
+    }
     default:
         break;
     }

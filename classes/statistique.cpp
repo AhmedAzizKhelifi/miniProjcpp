@@ -1,3 +1,16 @@
+void statDepenseEnSalaireEmployer(Container<employer>e){
+  float salaires = 0.0;
+  for(int i=0;i<e.taille();i++)
+    {
+      salaires+=e[i].getSalaire();
+    }
+    cout<<"La somme des salaires des employes par mois est :"<<salaires;
+    cout << "\nNombre total des employes est :" << e.taille();
+    if(e.taille()>0){
+      cout << "\nCe qui est au moyenne "<< (float)(salaires/e.taille()) << " par employer.";
+    }
+    }
+
 void statSommeVente(Container<Facture> p,Container<employer> e)
 {
     // somme taa vente
@@ -23,12 +36,7 @@ void statSommeVente(Container<Facture> p,Container<employer> e)
 /*     cout<<"la somme des achats d'aujourd'hui ="<<
     cout<<"la somme des achats du mois ="<<;
     cout<<"la somme des achats d'année ="<<; */
-  /*   for(int i=0;i<e.taille();i++)
-    {
-        salaires+=e[i].getsalaires();
-    }
-    cout<<"la somme des salaires des employes ="<<salaires<<endl;
-    cout<<"autres depenses ="; */
+    //cout<<"autres depenses =";
 
 
 

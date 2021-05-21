@@ -202,7 +202,7 @@ void menuClient(int &logged,Container<Produit> produits,Container<Facture>& fact
         if(s.carteF){
             std::cout << "Vous avez deja une carte de fidelite.\n";
         }else{
-            std::cout << "working\n";
+            std::cout << "Votre carte de fidelite est actuellement disponnible.\n";
             for (unsigned int i =0;i <clients.taille();i++){
                 if(clients[i].getId() == s.id){
                     client cli;
