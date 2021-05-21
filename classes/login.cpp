@@ -276,8 +276,7 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
     break;
     case 5:
         {
-            menuEmployerParametres();
-            system("PAUSE");     
+            menuEmployerParametres();    
         }
     break;
     default:

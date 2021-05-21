@@ -273,6 +273,9 @@ void menuEmployerParametres(){
     case 5:
         {
             header("Parametres\\Defenir la promotion sur la carte fidelite");
+            Setting s;
+            float f = readFloat("","Saisir remise en %:\n",0);
+            s.remiseSurCarteF =f; 
             pause();
         }
     break;

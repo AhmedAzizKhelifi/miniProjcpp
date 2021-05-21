@@ -21,8 +21,7 @@ class Setting{
         id="_";
         tel="_";
         carteF=false;
-        estGerant=false;
-        remiseSurCarteF=5.0;  
+        estGerant=false; 
     };
 
     void setNom(string _nom){nom = _nom;}
