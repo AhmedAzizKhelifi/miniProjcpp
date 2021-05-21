@@ -259,6 +259,7 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
     case 3:
         {
             header("personelle");
+            //\n2. Ajouter un employer\n3. Supprimer un employer
             system("PAUSE");     
         }
     break;
@@ -266,7 +267,8 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
         {
             header("Statistique");
             if (!s.estGerant){
-                std::cout << "mekech gerant frr";
+                std::cout << "Seul le gerant peut voir cette page.\n\n>>> ";
+                pause();
             }else
             {
                 menuGerantStatistique(factures,employes,clients);

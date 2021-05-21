@@ -8,11 +8,11 @@ int choixEmployerParametre(std::string path = "Parametres"){
         try {
             //system("cls");
             header(path);
-            std::cout << "1. Parametre du compte\n2. Ajouter un employer\n3. Supprimer un employer\n4. Les date de promotions\n5. Defenir la promotion sur la carte fidelite\n\n0. Retour\n\n";
+            std::cout << "1. Parametre du compte\n2. Les date de promotions\n3. Defenir la promotion sur la carte fidelite\n\n0. Retour\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
-            validation = r>=0 && r<=5; // menu tests
+            validation = r>=0 && r<=3; // menu tests
         }   
         catch (const std::exception& e) {
             validation = false;
@@ -255,27 +255,21 @@ void menuEmployerParametres(){
     break;
     case 2:
         {
-            header("Parametres\\Ajouter un employer");
-            pause();
+            menuParametresDatepromos();
         }
     break;
     case 3:
         {
-            header("Parametres\\Supprimer un employer");
-            pause();
-        }
-    break;
-    case 4:
-        {
-            menuParametresDatepromos();
-        }
-    break;
-    case 5:
-        {
             header("Parametres\\Defenir la promotion sur la carte fidelite");
             Setting s;
-            float f = readFloat("","Saisir remise en %:\n",0);
-            s.remiseSurCarteF =f; 
+            if (s.estGerant){
+                float f = readFloat("","Saisir remise en %:\n",0);
+                s.remiseSurCarteF =f;
+            } else
+            {
+                cout << "Seul le gerant peut voir cette page.\n\n>>> ";
+                
+            }
             pause();
         }
     break;

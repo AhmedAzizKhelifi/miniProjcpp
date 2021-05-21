@@ -82,7 +82,7 @@ void Facture::saisir_fact(Container<Produit> produits){
     do
     {
         r = readInt("","La date du facture est aujourd'hui, voulez-vous changer la date?\n\n0. Non\n1. Oui\n\n",0);
-        
+        cout << r;
     } while (!(r>=0 && r<=1));
     
     
