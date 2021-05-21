@@ -17,6 +17,7 @@ class Fichier{
         void appendFacture(Facture); 
         void appendClient(client); 
         void appendDate(date);
+        void appendEmployer(employer);
         void reset(); //supprimer le contenu du fichier
         //surchage
         friend std::ostream& operator << (std::ostream&,Fichier&);
@@ -99,6 +100,14 @@ void Fichier::appendClient(client cli){
     file << ch << "\n";
     file.close();
 }
+
+void Fichier::appendEmployer(employer e){
+    file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
+    string ch = e.toStr();
+    file << ch << "\n";
+    file.close();
+}
+
 
 void Fichier::appendDate(date d){
     file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);

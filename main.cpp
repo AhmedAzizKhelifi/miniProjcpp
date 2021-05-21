@@ -53,15 +53,15 @@ int main(){
     produits = LoadProduit();
     promoDays = LoadPromoDays();
     int logged = 0; 
-    pause();
-    Setting s;
 
+    Setting s;
          while (true){
             
 
             if(logged==0)
             {
                 Setting::resetSettings();
+                employes = LoadEmployer();
                 menu1(logged,clients,employes,produits,factures);
             }
             else if(logged == 1){

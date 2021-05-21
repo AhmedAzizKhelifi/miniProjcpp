@@ -259,7 +259,7 @@ void menuEmployer(int& logged,Container<employer>& employes, Container<Produit>&
     case 3:
         {
             header("personelle");
-            //\n2. Ajouter un employer\n3. Supprimer un employer
+            menuEmployerPersonelle();
             system("PAUSE");     
         }
     break;

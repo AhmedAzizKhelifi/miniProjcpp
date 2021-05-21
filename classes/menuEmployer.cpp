@@ -1,5 +1,67 @@
 #include "saveToFiles.cpp"
 
+int choixEmployerPersonelle(string path = "Personnel"){
+    int r;
+    bool validation = true;
+    std::cin.exceptions(std::istream::failbit);
+    do {
+        try {
+            //system("cls");
+            header(path);
+            std::cout << "1. Ajouter un employer\n2. Modifier les donnees d'un employer\n3. Supprimer un employer\n\n0. Retour\n\n";
+            std::cout << ">>>";
+            std::cin >> r;
+            system("cls");
+            validation = r>=0 && r<=3; // menu tests
+        }   
+        catch (const std::exception& e) {
+            validation = false;
+            //cout << "PLEASE INSERT A VALID OPTION." << endl;
+            std::cin.clear();
+            std::string tmp;
+            std::getline(std::cin, tmp);
+        }
+       
+    } while (validation == false);
+
+    return r;
+}
+
+void menuEmployerPersonelle(){
+    int r= choixEmployerPersonelle();
+    switch (r)
+    {
+    case 0:
+        break;
+    case 1:
+        {
+            header("Ajouter un employer");
+            employer e;
+            Container<employer> employes;
+            employes = LoadEmployer();
+            e.saisirEmployer(employes);
+            employes.ajouter(e);
+            Fichier f("employer");
+            f.appendEmployer(e);
+            std::cout << "\nEmployer ajoutee avec success.\n\n>>> ";
+            pause();
+        }
+    break;
+    case 2:
+        {
+            header("Modifier les donnees d'un employer");
+            pause();   
+        }
+    case 3:
+        {
+            header("Supprimer un employer");
+            pause();   
+        }
+    
+    default:
+        break;
+    }
+}
 int choixEmployerParametre(std::string path = "Parametres"){
     int r;
     bool validation = true;

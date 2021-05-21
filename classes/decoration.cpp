@@ -4,6 +4,7 @@
 #include <conio.h>
 #include "settings.h"
 
+
 float max(float tab[])
 {
 
@@ -81,7 +82,6 @@ void header(std::string path = ""){
     }else{
         std::cout << "\n";
     }
-    
 }
 int ouiNon(std::string text = "_text_", std::string path ="_path_",int h = 1,int fullText = 0){
     std::string r;

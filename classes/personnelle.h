@@ -39,23 +39,92 @@ class employer:public personnelle
  protected:    
     int num_telf;
     bool estGerant = false;
+    float salaire;
 public:
-     employer();
+     //employer();
      employer(string,int);
      employer(string="",string="",string="",string="",string="",int=0);
      void afficherc();
      void archiver();
      void enregistrer();
      void Modifier();
+     string toStr();
+     void saisirEmployer(Container<employer>);
      //ostream& operator <<(operator&,employer&);
      int getTel(){return num_telf;}
      void setEstGerant(bool g){estGerant = g;}
      bool getEstGerant(){return estGerant;}
+     int getSalaire(){return salaire;}
+     void setSalaire(float s){salaire = s;}
 };
+
+string employer::toStr(){
+    string ch;
+    ch = id + " " + nom + " " + prenom + " " + email + " " + password + " " + to_string(num_telf) + " " + to_string(salaire) + " ";
+    if(estGerant)
+        ch += "1";
+    else
+        ch += "0";
+    return ch;
+}
 
 employer::employer(string line, int x){
     std::stringstream ss(line);
-    ss >> id >> nom>> prenom>> email >> password >> num_telf >> estGerant;
+    ss >> id >> nom>> prenom>> email >> password >> num_telf >> salaire >> estGerant;
+}
+void employer::saisirEmployer(Container<employer> employes){
+    cout << "ID Employer: e"<< employes.taille();
+        /* string id;
+    string nom;
+    string prenom;
+    string email;
+    string password; */
+    id = "e" + std::to_string(employes.taille());
+    cout << "\nSaisir le nom de l'employer: \n>>> ";
+    cin >> nom;
+    cout << "Saisir le prenom de l'employer: \n>>> ";
+    cin >> prenom;   
+    cout << "Saisir l'email de l'employer: \n>>> ";
+    cin >> email;
+    cout << "Saisir le mot de passe:\n>>> ";
+    password = readPassword();
+    estGerant = false;
+    num_telf = readInt("","Saisir le num tel:\n",0);
+    salaire = readFloat("","Saisir le salaire:\n",0);
+   /*  cin >> id;
+    idPersonelle = idP;
+   // cout << "Saisir le remise en %: \n>>>";
+    if(carteF){
+        cout << "Vous obtenez une remise de 5% (Carte fidelite):  \n>>>";
+        remise = 5;
+    }else
+    {remise =_remise;}
+    Date.saisir_date();
+    int r;
+    bool validation = false;
+    //liste des produits :
+    do
+    {
+        validation = false;
+        cout << "Saisir l'ID du produit: \n>>>";
+        string idProduit;
+        cin >> idProduit;
+        if(produits.idintExist(idProduit))
+            idProduits.ajouter(idProduit);
+        else
+            cout << "\nID invalide.\n";
+        if(idProduits.taille()>0) 
+            r = ouiNon("Ajouter un autre produit?","path",0,1);
+        if(r==1) validation=true;
+        if(idProduits.taille()==0) validation = true;
+    } while (validation);
+    float _prix_total = 0.0;
+    for (unsigned int i = 0; i < idProduits.taille(); i++){
+        Produit p;
+        p = produits.getByintId(idProduits[i]);
+        _prix_total= _prix_total + p.getPrix();
+    }
+    prix_total = _prix_total- ((_prix_total*remise)/100); */
 }
 
 
@@ -216,7 +285,7 @@ ostream& operator <<(operator& out,employer& c)
 void employer::Modifier()
 {
     cout<<"---modification----"<<endl;
-    cout<<"1-id"<<endl<<"2-nom"<<endl<<"3-prenom"<<endl<<"4-email"<<endl<<"5-password"<<endl<<"6-num_tel"<<endl;  
+    cout<<"1-id"<<endl<<"2-nom"<<endl<<"3-prenom"<<endl<<"4-email"<<endl<<"5-password"<<endl<<"6-num_tel"<< "7-salaire"<<endl;  
     int i;
     cin>>i;
     switch (i)
@@ -226,8 +295,9 @@ void employer::Modifier()
     case 3:cin>>prenom;break;
     case 4:cin>>email;break;
     case 5:cin>>password;break;
-    default:cin>>num_telf;
-    
+    case 6: cin>>num_telf;break;
+    case 7: cin>>salaire;break;
+    default:break; 
     }
 }
 void client::ModifierClient()
