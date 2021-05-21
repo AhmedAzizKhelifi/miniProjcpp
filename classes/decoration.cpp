@@ -96,7 +96,7 @@ int ouiNon(std::string text = "_text_", std::string path ="_path_",int h = 1,int
             if (fullText==1)
                 std::cout << text << "[O/n]\n\n";
             else
-                std::cout << "(deco)Vous voulez vraiment " << text << "?[O/n]\n\n";
+                std::cout << "(deco)Voulez-vous vraiment " << text << "?[O/n]\n\n";
             std::cout << ">>>";
             std::cin >> r;
             //system("cls");

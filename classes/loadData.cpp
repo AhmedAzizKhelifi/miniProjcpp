@@ -39,7 +39,7 @@ Container<employer> LoadEmployer(){
 Container<date> LoadPromoDays(){
     Fichier f("PromoDays");
     Container<std::string> c ;
-    c=f.fillContainer(false);
+    c=f.fillContainer(1);
     Container<date> datesPromo;
     for (unsigned int i = 0; i < c.taille(); i++ ){
         datesPromo.ajouter(date(c[i]));

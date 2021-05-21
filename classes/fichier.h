@@ -11,11 +11,12 @@ class Fichier{
     public:
         Fichier(std::string);
         void afficher();
-        Container<std::string> fillContainer(bool=true); // fill container by strings from file, line by line
+        Container<std::string> fillContainer(int=0); // fill container by strings from file, line by line
         void appendStr(std::string);
         void appendProduit(Produit);
         void appendFacture(Facture); 
         void appendClient(client); 
+        void appendDate(date);
         void reset(); //supprimer le contenu du fichier
         //surchage
         friend std::ostream& operator << (std::ostream&,Fichier&);
@@ -51,17 +52,21 @@ void Fichier::afficher(){
 }
 
 
-Container<std::string> Fichier::fillContainer(bool employerOrClient){
+Container<std::string> Fichier::fillContainer(int toWho){
     Container<std::string> c;
     char ch[101];
     file.seekg(0);
     file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
     while(true){
         file.getline(ch,100,'\n');
-        if(employerOrClient){
+        if(toWho==0){
             if(isdigit(ch[0]) | ch[0] == 'c' | ch[0] == 'e') 
                 c.ajouter(ch);
-        }else{
+        }else if(toWho == 1){
+            if(isdigit(ch[0]))
+                 c.ajouter(ch);
+        }
+        else {
             c.ajouter(ch);
         }
         
@@ -92,6 +97,13 @@ void Fichier::appendClient(client cli){
     file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
     string ch = cli.clientToStr();
     file << ch << "\n";
+    file.close();
+}
+
+void Fichier::appendDate(date d){
+    file.open("saves\\"+nom+".txt",std::ios::in|std::ios::app);
+    string ch = d.toStr();
+    file << ch;
     file.close();
 }
 void Fichier::reset(){

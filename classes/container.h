@@ -5,7 +5,9 @@ class Container{
     public:
         void ajouter(T);
         void supprimer(std::string);
+        void supprimerParIndice(int);
         void modifier(std::string);
+        int find(T);
         int biggerId();
         bool idintExist(std::string);
         bool idstrExist(std::string);
@@ -25,6 +27,15 @@ T Container<T>::operator[](int i){
 template<class T>
 void Container<T>::ajouter(T element){
     tab.push_back(element);
+}
+
+template<class T>
+int Container<T>::find(T element){
+    for (unsigned int i =0;i<taille();i++){
+        if (element==tab[i])
+            return i;
+    }
+    return -1;
 }
 
 template<class T>
@@ -83,6 +94,13 @@ void Container<T>::supprimer(std::string id){
         }
     }
 }
+
+template<class T>
+void Container<T>::supprimerParIndice(int index){
+    tab.erase(tab.begin() + index);
+}
+
+
 
 template<class T>
 void Container<T>::modifier(std::string id){

@@ -26,7 +26,7 @@ class date
      void set_mois(int m){mois=m;}
      void set_annee(int a){annee=a;}
      date getToday();
-     string toStr(){return (to_string(jour)+ " " + to_string(mois)+ " " +to_string(annee)+"\n");}
+     string toStr(bool = false);
 
      int get_jour(){return jour;}
      int get_mois(){return mois;}
@@ -151,6 +151,13 @@ void date::saisir_date()
 
 }
 
+string date::toStr(bool t){
+    if (t)
+        return (to_string(jour)+ "/" + to_string(mois)+ "/" +to_string(annee));
+    else
+        return (to_string(jour)+ " " + to_string(mois)+ " " +to_string(annee)+"\n");
+}
+
 void date::afficher_date()
 {
     cout<<"\n la date est "<<jour<<"/"<<mois<<"/"<<annee<<endl;
@@ -174,7 +181,7 @@ int date::est_sup(date t)
 }
 ostream& operator<<(ostream& out,date& d)
 {
-    out<<"\n la date est "<<d.jour<<"/"<<d.mois<<"/"<<d.annee<<endl;
+    out<<d.jour<<"/"<<d.mois<<"/"<<d.annee<<endl;
     return out;
 }
 
@@ -203,7 +210,7 @@ istream& operator>>(istream& in,date& d)
  }
  bool date::operator==(date& d)
  {
-     if(annee==d.annee && mois==d.mois && jour==d.jour)
+     if(annee==d.get_annee() && mois==d.get_mois() && jour==d.get_jour())
         return true;
      return false;
  }

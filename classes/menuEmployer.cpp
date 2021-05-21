@@ -8,7 +8,7 @@ int choixEmployerParametre(std::string path = "Parametres"){
         try {
             //system("cls");
             header(path);
-            std::cout << "1. Parametre du compte\n2. Ajouter un employer\n3. Supprimer un employer\n4. Definir les date de promotions\n5. Defenir la promotion sur la carte fidelite\n\n0. Retour\n\n";
+            std::cout << "1. Parametre du compte\n2. Ajouter un employer\n3. Supprimer un employer\n4. Les date de promotions\n5. Defenir la promotion sur la carte fidelite\n\n0. Retour\n\n";
             std::cout << ">>>";
             std::cin >> r;
             system("cls");
@@ -109,7 +109,32 @@ int choixEmployerProduits(){
 
     return r;
 }
+int choixParametresDatepromos(){
+    int r;
+    bool validation = true;
+    std::cin.exceptions(std::istream::failbit);
+    do {
+        try {
+            system("cls");
+            header("Parametres\\Parametre du compte");
+            std::cout << "1. Afficher les dates de promotions\n2. Ajouter une date de promotions\n3. Supprimer une date de promotion\n\n0. Retour\n\n";
+            std::cout << ">>>";
+            std::cin >> r;
+            system("cls");
+            validation = (r>=0 && r<=3); // menu tests
+        }
+        catch (const std::exception& e) {
+            validation = false;
+            //cout << "PLEASE INSERT A VALID OPTION." << endl;
+            std::cin.clear();
+            std::string tmp;
+            std::getline(std::cin, tmp);
+        }
+       
+    } while (validation == false);
 
+    return r;
+}
 int choixEmployerCommandes(){
     int r;
     bool validation = true;
@@ -136,7 +161,84 @@ int choixEmployerCommandes(){
 
     return r;
 }
+void menuParametresDatepromos(){
+    int r = choixParametresDatepromos();
+    switch (r)
+    {
+    case 0:
+        break;
+    case 1:
+        {
+            header("Parametres\\Afficher les dates de promotions");
+            Container <date> promoDays;
+            promoDays = LoadPromoDays();
+            cout << "Le nombre de date de promotions est: " << promoDays.taille() << "\n\n";
+            for (unsigned int i =0;i<promoDays.taille();i++)
+                cout << "Date "<< i << ": "<<promoDays[i].toStr(true) << endl;
+            std::cout << "\n\n>>> ";
+            pause();
+        }
+    break;
+    case 2:
+        {
+            header("Parametres\\Ajouter une date de promotions");
+            Container <date> promoDays;
+            promoDays = LoadPromoDays();
+            date d;
+            int r = 0;
+            do
+            {
+                d.saisir_date();
+                r = ouiNon("confirmer l'ajout du date "+d.toStr(true)+" ","Parametres\\Ajouter une date de promotions");
+            } while (!(r==1));
+            promoDays.ajouter(d);
+            Fichier f("PromoDays");
+            f.reset();
+            f.appendDate(d);
+            std::cout << "\nDate de promotion ajoutee avec success.\n\n>>> ";
+            pause();
+        }
+    break;
+    case 3:
+        {
+            header("Parametres\\Supprimer une date de promotion");
+            Container <date> promoDays;
+            promoDays = LoadPromoDays();
+            date d;
+            do
+            {
+                d.saisir_date();
+                int trouve = promoDays.find(d);
+                if (trouve == -1){
+                    cout << "Date inconnue, saisir q pour quitter.\n\n>>>";
+                    char c = ' ';
+                    cin >> c;
+                    if (c=='q')
+                        break;
+                }else{
+                    r = ouiNon("confirmer la suppression du date "+d.toStr(true)+" ","Parametres\\Ajouter une date de promotions");
+                    if (r==0)
+                        continue;
+                    else
+                        {
+                            promoDays.supprimerParIndice(trouve);
+                            Fichier f("PromoDays");
+                            f.reset();
+                            for (unsigned int i =0;i<promoDays.taille();i++)
+                                f.appendDate(promoDays[i]);
+                            std::cout << "\nDate de promotion supprimer avec success.\n\n>>> ";
+                        }
+                }
+            } while (!(r==1));
 
+            pause();
+        }
+    break;
+    default:
+        break;
+    }
+
+}
 void menuEmployerParametres(){
     int r = choixEmployerParametre();
     //"1. \n2. \n3. \n4. \n5. \n\n0. Retour\n\n";
@@ -165,8 +267,7 @@ void menuEmployerParametres(){
     break;
     case 4:
         {
-            header("Parametres\\Definir les date de promotions");
-            pause();
+            menuParametresDatepromos();
         }
     break;
     case 5:

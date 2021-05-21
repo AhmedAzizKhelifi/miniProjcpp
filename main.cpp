@@ -52,13 +52,7 @@ int main(){
     factures = LoadFacture();   
     produits = LoadProduit();
     promoDays = LoadPromoDays();
-    int logged = 0;
-    date d;
-    d = d.getToday();
-    string ch =  d.toStr();
-    cout << ch;
-    date d2(ch);
-    cout << d2;
+    int logged = 0; 
     pause();
     Setting s;
 
